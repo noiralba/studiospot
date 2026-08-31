@@ -80,6 +80,20 @@ The application will contain at least three routes, including a dynamic route wi
 /studios/:id
 ```
 
+### Dynamic Routes
+
+Page files are automatically converted into URL paths by the routing setup.
+
+Dynamic route parameters use a $ prefix in the page filename. For example:
+
+`src/pages/studios/$id.tsx`
+
+is converted to:
+
+`/studios/:id`
+
+This allows individual studios to be accessed through URLs such as `/studios/1` or `/studios/2`.
+
 ## Data and API
 
 Project data will be stored in `db.json` and exposed through json-server as a REST API. The application will communicate with the API using:
