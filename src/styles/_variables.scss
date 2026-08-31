@@ -1,0 +1,24 @@
+// Färger (Design Tokens)
+$color-primary: #0066cc;
+$color-primary-hover: #0052a3;
+$color-primary-active: #003d7a;
+$color-text-main: #1a1a1a;
+$color-text-muted: #666;
+$color-border: #ccc;
+$color-bg-page: #f9f9f9;
+$color-bg-card: #ffffff;
+
+// Globala former och animationer
+$border-radius-md: 4px;
+$border-radius-lg: 8px;
+$transition-fast:
+  border-color 0.2s,
+  background-color 0.2s,
+  box-shadow 0.2s;
+
+// Mixin för återanvändbar fokus-styling (tillgänglighet)
+@mixin focus-ring {
+  outline: none;
+  border-color: $color-primary;
+  box-shadow: 0 0 0 3px rgba($color-primary, 0.15);
+}
