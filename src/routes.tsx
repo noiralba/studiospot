@@ -1,17 +1,22 @@
-import { createElement } from "react";
+import { createElement, type ComponentType } from "react";
 
-const pages = import.meta.glob("./pages/**/*.tsx", { eager: true });
+interface PageModule {
+  default: ComponentType;
+}
+
+const pages = import.meta.glob<PageModule>("./pages/**/*.tsx", { eager: true });
 
 const routes = Object.entries(pages).map(([path, module]) => {
-  const mod = module as { default: React.ComponentType; };
-  
+  const routePath = path
+    .replace("./pages", "")
+    .replace(/\.tsx$/, "")
+    .replace(/\/index$/, "")
+    .toLowerCase();
+
   return {
-    path: path,
-    element: createElement(mod.default),
+    path: routePath,
+    element: createElement(module.default),
   };
 });
-
-console.log(routes);
-
 
 export default routes;
