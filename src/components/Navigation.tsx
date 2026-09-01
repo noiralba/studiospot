@@ -5,7 +5,7 @@ function Navigation() {
     <nav>
       <Link to="/">Home</Link>
       <Link to="/studios">Studios</Link>
-      <Link to="/bookings">Bookings</Link>
+      <Link to="/booking">Bookings</Link>
     </nav>
   );
 }

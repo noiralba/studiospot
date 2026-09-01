@@ -150,7 +150,7 @@ http://localhost:3000
 ### Available endpoints
 
 - `/studios`
-- `/bookings`
+- `/booking`
 
 ---
 
