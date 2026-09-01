@@ -70,7 +70,7 @@ The double-booking check is handled in the frontend because the project uses jso
 
 The project uses React Router v8 in Data Mode.
 
-Routes will be defined as route objects with `createBrowserRouter` and renderd with `RouterProvider`.
+Routes will be defined as route objects with `createBrowserRouter` and rendered with `RouterProvider`.
 
 The application will contain at least three routes, including a dynamic route with a URL parameter, for example:
 
@@ -119,25 +119,38 @@ Vite will display the local development URL in the terminal.
 
 ## Start json-server
 
-The exact project script for json-server will be added when db.json is configured.
+### Start the local JSON API:
+
+```text
+npm run server
+
+```
+
+### JSON Server runs on:
+
+```text
+http://localhost:3000
+
+```
+
+### Available endpoints
+
+- `/studios`
+- `/bookings`
+
+---
 
 ## Available Scripts
 
-`npm run dev`
+`npm run dev` -Starts the Vite development server
 
-#### Starts the Vite development server
+`npm run server` -Starts JSON Server and exposes the local REST API from `db.json`.
 
-`npm run build`
+`npm run build` -Runs the TypeScript build and creates the production build.
 
-#### Runs the TypeScript build and creates the production build.
+`npm run lint` -Runs Oxlint
 
-`npm run lint`
-
-#### Runs Oxlint
-
-`npm run preview`
-
-#### Previews the production build locally
+`npm run preview` -Previews the production build locally
 
 ## Styling
 
