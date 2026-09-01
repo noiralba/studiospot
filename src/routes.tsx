@@ -11,6 +11,7 @@ const routes = Object.entries(pages).map(([path, module]) => {
     .replace("./pages", "")
     .replace(/\.tsx$/, "")
     .replace(/\/index$/, "")
+    .replace(/\$([^/]+)/g, ":$1")
     .toLowerCase();
 
   return {
