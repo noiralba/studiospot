@@ -1,14 +1,17 @@
-import { Outlet } from "react-router"
+import { Outlet } from "react-router";
+import Navigation from "./components/Navigation";
 
 function App() {
-
-
   return (
-    <main>
-      <h1>Studio Spot</h1>
-      <Outlet />
-    </main>
-  )
+    <>
+      <Navigation />
+
+      <main>
+        <h1>Studio Spot</h1>
+        <Outlet />
+      </main>
+    </>
+  );
 }
 
-export default App
+export default App;
