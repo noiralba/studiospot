@@ -1,0 +1,36 @@
+@use "./variables" as v;
+
+.booking-page {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background-color: v.$color-bg-page;
+  border-radius: v.$border-radius-lg;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  h1 {
+    color: v.$color-text-main;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: v.$color-text-muted;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background-color: v.$color-bg-card;
+    padding: 2rem;
+    border-radius: v.$border-radius-lg;
+    border: 1px solid v.$color-border;
+  }
+}
