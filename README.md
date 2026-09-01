@@ -105,6 +105,29 @@ Project data will be stored in `db.json` and exposed through json-server as a RE
 
 For the VG requirements, API communication will be handled through a reusable generic TypeScript API module.
 
+### Development Proxy
+
+Vite uses a development proxy for API requests.
+
+Frontend requests should use the `/api` prefix:
+
+- `/api/studios`
+- `/api/booking`
+
+#### Example request:
+
+```ts
+fetch("/api/studios");
+```
+
+During development, Vite forwards these requests to JSON Server running on port `3000`.
+
+#### For example:
+
+`/api/studios` -> `http://localhost:3000/studios`
+
+`/api/booking` -> `http://localhost:3000/booking`
+
 ## Getting Started
 
 #### Prerequisites
