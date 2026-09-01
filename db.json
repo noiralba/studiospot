@@ -34,7 +34,7 @@
     }
   ],
 
-  "bookings": [
+  "booking": [
     {
       "id": 1,
       "studioId": 1,
