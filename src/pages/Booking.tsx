@@ -5,6 +5,10 @@ import "../styles/_Booking.scss";
 import FormGroup from "../components/FormGroup/FormGroup";
 import Button from "../components/Button/Button";
 
+interface ActionData {
+  error?: string;
+}
+
 export async function action({ request, params }: ActionFunctionArgs) {
   const formData = await request.formData();
 
@@ -19,7 +23,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   // middleware
 
   try {
-    const response = await fetch("http://localhost:3000/bookings", {
+    const response = await fetch("/api/booking", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +43,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export default function Booking() {
   const { studioId } = useParams<{ studioId: string }>();
-  const actionData = useActionData() as { error?: string } | undefined;
+  const actionData = useActionData() as ActionData | undefined;
 
   return (
     <main className="booking-page">
@@ -76,7 +80,7 @@ export default function Booking() {
           required
         />
 
-        <Button type="submit" children="Boka studio" />
+        <Button type="submit">Boka studio</Button>
       </Form>
     </main>
   );
