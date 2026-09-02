@@ -31,7 +31,7 @@ export default function ManageBooking() {
       <section>
         <h2>Din bokning</h2>
         <p>Studio: {testBooking.studioId}</p>
-        {/* här kör jag en split, måste jobba vidare på att bara rendera sekunder på time*/}
+        {/* här kör jag en split, måste jobba vidare på att inte rendera sekunder på time*/}
         <p>Datum: {testBooking.startTime.split("T")[0]}</p>
         <p>
           Tid: {testBooking.startTime.split("T")[1]} -{" "}
