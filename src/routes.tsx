@@ -2,6 +2,8 @@ import { createElement, type ComponentType } from "react";
 
 interface PageModule {
   default: ComponentType;
+  action?: any;
+  loader?: any;
 }
 
 const pages = import.meta.glob<PageModule>("./pages/**/*.tsx", { eager: true });
@@ -17,6 +19,8 @@ const routes = Object.entries(pages).map(([path, module]) => {
   return {
     path: routePath,
     element: createElement(module.default),
+    action: module.action ? module.action : undefined,
+    loader: module.loader ? module.loader : undefined,
   };
 });
 
