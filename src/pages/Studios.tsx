@@ -9,7 +9,7 @@ interface StudiosProps {
   imageUrl: string;
   pricePerHour: number;
   category: string;
-  equipment: string[];
+  equipment?: string[];
 }
 
 
@@ -18,7 +18,7 @@ export default function Studios() {
     const [studios, setStudios] = useState<StudiosProps[]>([]);
   
     useEffect(() => {
-    fetch('http://localhost:3000/studios')
+    fetch('/api/studios')
       .then(response => response.json())
         .then(data => setStudios(data))
       .catch(error => console.error('Error fetching studios:', error))
@@ -38,6 +38,7 @@ export default function Studios() {
             imageUrl={studio.imageUrl}
             pricePerHour={studio.pricePerHour}
             category={studio.category}
+            equipment={studio.equipment}
           />
         ))}
       </article>

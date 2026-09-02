@@ -14,7 +14,7 @@ export default function Home() {
   const [studios, setStudios] = useState<Studio[]>([]);
 
   useEffect(() => {
-  fetch('http://localhost:3000/studios')
+  fetch('/api/studios')
     .then(response => response.json())
       .then(data => setStudios(data))
     .catch(error => console.error('Error fetching studios:', error))
@@ -30,6 +30,7 @@ export default function Home() {
         {studios.map(studio => (
           <StudiosCard
             key={studio.id}
+            studioId={studio.id}
             name={studio.name}
             description={studio.description}
             pricePerHour={studio.pricePerHour}
