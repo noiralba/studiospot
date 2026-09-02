@@ -18,6 +18,7 @@ export default function ManageBooking() {
   const [booking, setBooking] = useState<Booking | null>(null);
   const [error, setError] = useState("");
 
+  //GET
   // körs när kunden klickat på hitta bokning, rensa tidigare sök
   async function handleSearch() {
     setError("");
@@ -33,6 +34,33 @@ export default function ManageBooking() {
 
       const data: Booking = await response.json();
       setBooking(data);
+    } catch {
+      setError("Något gick fel. Försök igen.");
+    }
+  }
+
+  //PATCH
+  async function handleCancel() {
+    if (!booking) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/booking/${booking.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: "cancelled" }),
+      });
+
+      if (!response.ok) {
+        setError("Kunde inte avboka bokningen.");
+        return;
+      }
+
+      const updatedBooking: Booking = await response.json();
+      setBooking(updatedBooking);
     } catch {
       setError("Något gick fel. Försök igen.");
     }
@@ -81,7 +109,9 @@ export default function ManageBooking() {
           {booking.status === "cancelled" ? (
             <p>Bokningen är avbokad.</p>
           ) : (
-            <button type="button">Avboka bokning</button>
+            <button type="button" onClick={handleCancel}>
+              Avboka bokning
+            </button>
           )}
         </section>
       )}
