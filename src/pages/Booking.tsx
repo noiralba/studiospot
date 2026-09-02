@@ -13,7 +13,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const formData = await request.formData();
 
   const bookingData = {
-    studioId: params.studioId,
+    studioId: Number(params.studioId),
     date: formData.get("date") as string,
     startTime: formData.get("startTime") as string,
     endTime: formData.get("endTime") as string,
