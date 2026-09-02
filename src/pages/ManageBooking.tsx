@@ -1,3 +1,4 @@
+import { useState } from "react";
 type BookingStatus = "confirmed" | "cancelled"; //type med union - status (kan bara vara confirmed eller cancelled)
 
 //interface - bokningsobjektet
@@ -11,6 +12,7 @@ interface Booking {
 }
 
 export default function ManageBooking() {
+  const [bookingId, setBookingId] = useState("");
   // testdata för att kunna bygga innan riktig data hämtas!
   const testBooking: Booking = {
     id: 1,
@@ -20,13 +22,29 @@ export default function ManageBooking() {
     endTime: "2026-09-02T12:00:00",
     status: "confirmed",
   };
+
+  function handleSearch() {
+    console.log("Söker efter bokning:", bookingId);
+  }
+
   return (
     <main>
       <h1>Hantera din bokning</h1>
+
       {/* sökdelens skelett */}
       <p>Ange ditt bokningsnummer för att visa eller ändra din bokning.</p>
-      <input type="text" placeholder="Bokningsnummer" />
-      <button type="button">Hitta bokning</button>
+
+      <input
+        type="text"
+        placeholder="Bokningsnummer"
+        value={bookingId}
+        onChange={(event) => setBookingId(event.target.value)}
+      />
+
+      <button type="button" onClick={handleSearch}>
+        Hitta bokning
+      </button>
+
       {/* visar bokningsinfo från testBooking */}
       <section>
         <h2>Din bokning</h2>
