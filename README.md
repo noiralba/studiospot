@@ -72,7 +72,7 @@ The project uses React Router v8 in Data Mode.
 
 Routes will be defined as route objects with `createBrowserRouter` and rendered with `RouterProvider`.
 
-The application will contain at least three routes, including a dynamic route with a URL parameter, for example:
+The application contain multiple routes, including a dynamic route with a URL parameter:
 
 ```text
 /
@@ -93,6 +93,8 @@ is converted to:
 `/studios/:id`
 
 This allows individual studios to be accessed through URLs such as `/studios/1` or `/studios/2`.
+
+The studio detail page reads the `id` parameter from the URL using `useParams`, fetches the selected studio through `/api/studios/:id`, and renders the existing `StudioDetail`component.
 
 ## Data and API
 
