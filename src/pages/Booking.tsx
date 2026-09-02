@@ -35,7 +35,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       return { error: "Kunde inte spara bokningen på servern." };
     }
 
-    return redirect("/booking-success");
+    return redirect("/");
   } catch (error) {
     return { error: "Nätverksfel. Försök igen senare." };
   }
