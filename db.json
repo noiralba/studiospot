@@ -8,7 +8,7 @@
       "pricePerHour": 500,
       "category": "photo",
       "description": "A modern photo studio with excellent lighting and backdrops.",
-      "equipment?": []
+      "equipment": []
     },
     {
       "id": 2,
@@ -18,7 +18,7 @@
       "pricePerHour": 800,
       "category": "video",
       "description": "A state-of-the-art video studio equipped with the latest technology.",
-      "equipment?": []
+      "equipment": []
     },
     {
       "id": 3,
@@ -28,7 +28,7 @@
       "pricePerHour": 650,
       "category": "music",
       "description": "A fully equipped music studio for recording and producing music.",
-      "equipment?": []
+      "equipment": []
     },
     {
       "id": 4,
@@ -36,9 +36,9 @@
       "imageUrl": "https://images.unsplash.com/photo-1567598125860-7201ff8c9e6f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "capacity": 10,
       "pricePerHour": 800,
-      "category": "video",
+      "category": "podcast",
       "description": "A professional podcast studio with soundproofing and high-quality microphones.",
-      "equipment?": []
+      "equipment": []
     }
   ],
 
