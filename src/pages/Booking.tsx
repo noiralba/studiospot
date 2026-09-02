@@ -36,7 +36,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     }
 
     return redirect("/");
-  } catch (error) {
+  } catch {
     return { error: "Nätverksfel. Försök igen senare." };
   }
 }
