@@ -1,36 +1,72 @@
 @use "./variables" as v;
 
 .booking-page {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 2rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
   font-family:
     system-ui,
     -apple-system,
     sans-serif;
-  background-color: v.$color-bg-page;
-  border-radius: v.$border-radius-lg;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+
+  // (Standard / Mobile First)
+  max-width: 100%;
+  background-color: transparent;
+  box-shadow: none;
 
   h1 {
     color: v.$color-text-main;
-    font-size: 2rem;
+    font-size: 1.75rem;
     margin-bottom: 0.5rem;
+    text-align: center;
   }
 
   p {
     color: v.$color-text-muted;
-    margin-bottom: 2rem;
-    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    text-align: center;
   }
 
   form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
     background-color: v.$color-bg-card;
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: v.$border-radius-lg;
     border: 1px solid v.$color-border;
+  }
+
+  // (Tablet)
+  @include v.respond-to(tablet) {
+    max-width: 550px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: v.$color-bg-page;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+    h1,
+    p {
+      text-align: left;
+    }
+
+    form {
+      padding: 2rem;
+    }
+  }
+
+  // (Desktop)
+  @include v.respond-to(desktop) {
+    max-width: 700px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background-color: v.$color-bg-page;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+    h1 {
+      font-size: 2.25rem;
+    }
   }
 }

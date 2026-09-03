@@ -7,6 +7,7 @@
   border: none;
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
 .label {
@@ -16,6 +17,8 @@
 }
 
 .input {
+  box-sizing: border-box;
+  width: 100%;
   padding: 0.75rem;
   border: 1px solid v.$color-border;
   border-radius: v.$border-radius-md;
