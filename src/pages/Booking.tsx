@@ -13,14 +13,8 @@ interface ActionData {
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  //const studioId = Number(param.studioId);
-
-  //if (!Number.isInteger(studioId)) {
-    //return { error: "Ogiltigt studio-ID." };
-  //}
 
   const url = new URL(request.url);
-  //console.log("action received URL:", request.url);
   const studioIdParam = url.searchParams.get("studioId");
   const studioId = studioIdParam ? Number(studioIdParam) : undefined;
   if (!studioId) {
