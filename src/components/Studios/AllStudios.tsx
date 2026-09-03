@@ -9,10 +9,11 @@ interface StudiosProps {
   pricePerHour: number;
   category: string;
   equipment?: string[];
+  studioId?: number;
 }
 
 //hämtar all data från db.json förutom equipment (lägger till det sen när vi har lagt in data där) och visar den i en card komponent.
-export default function AllStudios({ name, description, imageUrl, pricePerHour, category, equipment }: StudiosProps) {
+export default function AllStudios({ name, description, imageUrl, pricePerHour, category, equipment, studioId }: StudiosProps) {
   const navigate = useNavigate(); 
 
   return (
@@ -29,7 +30,7 @@ export default function AllStudios({ name, description, imageUrl, pricePerHour, 
           <li>{equipment?.join(', ') || 'None'}</li>
         </ul>
         {/* Future implementation for studioId */}
-        <Button onClick={() => navigate('/booking')} type="button" children="Book Now" /> 
+        <Button onClick={() => navigate(studioId ? `/booking?studioId=${studioId}` : '/studios')} type="button" children="Book Now" /> 
       </article>
     </section>
   );
