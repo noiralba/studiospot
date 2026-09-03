@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import styles from '../components/Studios/StudiosCard.module.scss';
 import StudiosCard from '../components/Studios/StudiosCard';
 
+
+
 interface Studio {
   id: number;
   name: string;

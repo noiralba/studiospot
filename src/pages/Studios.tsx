@@ -1,21 +1,13 @@
 import styles from '../components/Studios/StudiosCard.module.scss';
-import AllStudios from '../components/Studios/AllStudios';
 import { useEffect, useState } from 'react';
-
-interface StudiosProps {
-  id: number;
-  name: string;
-  description: string;
-  imageUrl: string;
-  pricePerHour: number;
-  category: string;
-  equipment?: string[];
-}
+import type { Studio } from '../components/types/Booking';
+import Button from '../components/Button/Button';
+import { useNavigate } from 'react-router';
 
 
 export default function Studios() {
-  
-    const [studios, setStudios] = useState<StudiosProps[]>([]);
+    const navigate = useNavigate(); 
+    const [studios, setStudios] = useState<Studio[]>([]);
   
     useEffect(() => {
     fetch('/api/studios')
@@ -30,16 +22,16 @@ export default function Studios() {
       <p>Explore our selection of studios available for booking.</p>
 
       <article className={styles.studios}>
-        {studios.map((studio) => (
-          <AllStudios
-            key={studio.id}
-            name={studio.name}
-            description={studio.description}
-            imageUrl={studio.imageUrl}
-            pricePerHour={studio.pricePerHour}
-            category={studio.category}
-            equipment={studio.equipment}
-          />
+        {studios.map(studio => (
+          <div key={studio.id} className={styles.studioCard}>
+            <img src={studio.imageUrl} alt={`${studio.name} studio`} className={styles.image} />
+            <h3 className={styles.name}>{studio.name}</h3>
+            <p className={styles.description}>{studio.description}</p>
+            <p className={styles.price}>Price per hour: {studio.pricePerHour} SEK</p>
+            <Button type="button"
+        onClick={() => navigate('/booking')}
+        >Book Now</Button>
+          </div>
         ))}
       </article>
     </section>
