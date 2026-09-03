@@ -1,16 +1,6 @@
 import { useState } from "react";
 
-type BookingStatus = "confirmed" | "cancelled";
-
-// interface - bokningsobjektet
-interface Booking {
-  id: number;
-  studioId: number;
-  email: string;
-  startTime: string;
-  endTime: string;
-  status: BookingStatus;
-}
+import type { Booking } from "../components/types/Booking";
 
 export default function ManageBooking() {
   // useState för spara id, bokning, felmeddelande
@@ -25,7 +15,7 @@ export default function ManageBooking() {
     setBooking(null);
 
     try {
-      const response = await fetch(`/api/booking/${bookingId}`);
+      const response = await fetch(`/api/bookings/${bookingId}`);
 
       if (!response.ok) {
         setError("Bokningen kunde inte hittas.");
@@ -46,7 +36,7 @@ export default function ManageBooking() {
     }
 
     try {
-      const response = await fetch(`/api/booking/${booking.id}`, {
+      const response = await fetch(`/api/bookings/${booking.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -103,15 +93,17 @@ export default function ManageBooking() {
 
           <p>Status: {booking.status}</p>
 
-          <button type="button">Ändra bokning</button>
-
-          {/* om bokningen är avbokad visas text, annars avbokningsknappen */}
+          {/* om bokningen är avbokad visas text, annars knapparna */}
           {booking.status === "cancelled" ? (
             <p>Bokningen är avbokad.</p>
           ) : (
-            <button type="button" onClick={handleCancel}>
-              Avboka bokning
-            </button>
+            <>
+              <button type="button">Ändra bokning</button>
+
+              <button type="button" onClick={handleCancel}>
+                Avboka bokning
+              </button>
+            </>
           )}
         </section>
       )}
