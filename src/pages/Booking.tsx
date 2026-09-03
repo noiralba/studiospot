@@ -11,9 +11,14 @@ interface ActionData {
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const formData = await request.formData();
+  const studioId = Number(params.studioId);
+
+  if (!Number.isInteger(studioId)) {
+    return { error: "Ogiltigt studio-ID." };
+  }
 
   const bookingData = {
-    studioId: params.studioId,
+    studioId,
     date: formData.get("date") as string,
     startTime: formData.get("startTime") as string,
     endTime: formData.get("endTime") as string,
