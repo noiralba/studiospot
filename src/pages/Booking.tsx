@@ -13,11 +13,11 @@ interface ActionData {
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  const studioId = Number(params.studioId);
+  //const studioId = Number(param.studioId);
 
-  if (!Number.isInteger(studioId)) {
-    return { error: "Ogiltigt studio-ID." };
-  }
+  //if (!Number.isInteger(studioId)) {
+    //return { error: "Ogiltigt studio-ID." };
+  //}
 
   const url = new URL(request.url);
   //console.log("action received URL:", request.url);
@@ -37,9 +37,9 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const bookingData = {
     studioId,
-    date: formData.get("date") as string,
-    startTime: formData.get("startTime") as string,
-    endTime: formData.get("endTime") as string,
+    startTime: startISO,
+    endTime: endISO,
+    status: "confirmed" as const,
     email,
   };
 

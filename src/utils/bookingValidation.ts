@@ -51,10 +51,13 @@ export function checkDoubleBooking(
         if (hasTimeConfilct(newStartDate, newEndDate, existingStart, existingEnd)){
             return {
                 valid: false,
-                message: `Studio är redan bokad §{existingStart.toLocalTimeString("sv-SE",
-                {hour: "2-digit", minute: "2-digit"})}
-                och §{existingEnd.toLocalTimeString("sv-SE",
-                {hour: "2-digit", minute: "2-digit"})}.`,
+                message: `Studio är redan bokad ${existingStart.toLocaleTimeString("sv-SE", {
+                hour: "2-digit",
+                minute: "2-digit",
+                })} och ${existingEnd.toLocaleTimeString("sv-SE", {
+                hour: "2-digit",
+                minute: "2-digit",
+                })}.`,
             };
         }
     }

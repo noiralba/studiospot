@@ -33,6 +33,7 @@ export default function Studios() {
         {studios.map((studio) => (
           <AllStudios
             key={studio.id}
+            studioId={studio.id}
             name={studio.name}
             description={studio.description}
             imageUrl={studio.imageUrl}
@@ -41,6 +42,7 @@ export default function Studios() {
             equipment={studio.equipment}
           />
         ))}
+       
       </article>
     </section>
   );
