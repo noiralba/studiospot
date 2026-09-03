@@ -23,7 +23,7 @@ export default function StudiosCard({ name, description, imageUrl, pricePerHour,
       <p className={styles.price}>Price per hour: {pricePerHour} SEK</p>
       
       <Button
-        onClick={() => navigate(studioId ? `/studios/${studioId}` : '/studios')}
+        onClick={() => navigate(studioId ? `/booking?studioId=${studioId}` : '/studios')}
         type="button"
         children="View Details" />
     
