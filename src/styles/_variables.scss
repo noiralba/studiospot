@@ -22,3 +22,27 @@ $transition-fast:
   border-color: $color-primary;
   box-shadow: 0 0 0 3px rgba($color-primary, 0.15);
 }
+
+// Breakpoints
+$breakpoint-mobile-max: 599px;
+$breakpoint-tablet-min: 600px;
+$breakpoint-tablet-max: 1024px;
+$breakpoint-desktop-min: 1025px;
+
+@mixin respond-to($media) {
+  @if $media == mobile {
+    @media only screen and (max-width: $breakpoint-mobile-max) {
+      @content;
+    }
+  }
+  @if $media == tablet {
+    @media only screen and (min-width: $breakpoint-tablet-min) and (max-width: $breakpoint-tablet-max) {
+      @content;
+    }
+  }
+  @if $media == desktop {
+    @media only screen and (min-width: $breakpoint-desktop-min) {
+      @content;
+    }
+  }
+}
