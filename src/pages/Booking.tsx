@@ -31,9 +31,9 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const bookingData = {
     studioId,
-    date: formData.get("date") as string,
-    startTime: formData.get("startTime") as string,
-    endTime: formData.get("endTime") as string,
+    startTime: startISO,
+    endTime: endISO,
+    status: "confirmed" as const,
     email,
   };
 

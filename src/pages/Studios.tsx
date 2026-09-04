@@ -33,6 +33,7 @@ export default function Studios() {
         >Book Now</Button>
           </div>
         ))}
+       
       </article>
     </section>
   );

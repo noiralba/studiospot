@@ -1,6 +1,8 @@
-type BookingStatus = "confirmed" | "cancelled"; //type med union - status (kan bara vara confirmed eller cancelled)
+import { useState } from "react";
 
-//interface - bokningsobjektet
+type BookingStatus = "confirmed" | "cancelled";
+
+// interface - bokningsobjektet
 interface Booking {
   id: number;
   studioId: number;
@@ -11,42 +13,108 @@ interface Booking {
 }
 
 export default function ManageBooking() {
-  // testdata för att kunna bygga innan riktig data hämtas!
-  const testBooking: Booking = {
-    id: 1,
-    studioId: 1,
-    email: "test@example.com",
-    startTime: "2026-09-02T10:00:00",
-    endTime: "2026-09-02T12:00:00",
-    status: "confirmed",
-  };
+  // useState för spara id, bokning, felmeddelande
+  const [bookingId, setBookingId] = useState("");
+  const [booking, setBooking] = useState<Booking | null>(null);
+  const [error, setError] = useState("");
+
+  //GET
+  // körs när kunden klickat på hitta bokning, rensa tidigare sök
+  async function handleSearch() {
+    setError("");
+    setBooking(null);
+
+    try {
+      const response = await fetch(`/api/booking/${bookingId}`);
+
+      if (!response.ok) {
+        setError("Bokningen kunde inte hittas.");
+        return;
+      }
+
+      const data: Booking = await response.json();
+      setBooking(data);
+    } catch {
+      setError("Något gick fel. Försök igen.");
+    }
+  }
+
+  //PATCH
+  async function handleCancel() {
+    if (!booking) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/booking/${booking.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: "cancelled" }),
+      });
+
+      if (!response.ok) {
+        setError("Kunde inte avboka bokningen.");
+        return;
+      }
+
+      const updatedBooking: Booking = await response.json();
+      setBooking(updatedBooking);
+    } catch {
+      setError("Något gick fel. Försök igen.");
+    }
+  }
+
   return (
     <main>
       <h1>Hantera din bokning</h1>
-      {/* sökdelens skelett */}
+
+      {/* sökdel */}
       <p>Ange ditt bokningsnummer för att visa eller ändra din bokning.</p>
-      <input type="text" placeholder="Bokningsnummer" />
-      <button type="button">Hitta bokning</button>
-      {/* visar bokningsinfo från testBooking */}
-      <section>
-        <h2>Din bokning</h2>
-        <p>Studio: {testBooking.studioId}</p>
-        {/* här kör jag en split, måste jobba vidare på att inte rendera sekunder på time*/}
-        <p>Datum: {testBooking.startTime.split("T")[0]}</p>
-        <p>
-          Tid: {testBooking.startTime.split("T")[1]} -{" "}
-          {testBooking.endTime.split("T")[1]}
-        </p>
-        <p>Status: {testBooking.status}</p>
-        <button type="button">Ändra bokning</button>
-        {/* om bokningen är avbokad, visas text, annars avbokningsknappen, testat
-        med npm run build */}
-        {testBooking.status === "cancelled" ? (
-          <p>Bokningen är avbokad.</p>
-        ) : (
-          <button type="button">Avboka bokning</button>
-        )}
-      </section>
+
+      <input
+        type="text"
+        placeholder="Bokningsnummer"
+        value={bookingId}
+        onChange={(event) => setBookingId(event.target.value)}
+      />
+
+      <button type="button" onClick={handleSearch}>
+        Hitta bokning
+      </button>
+
+      {error && <p>{error}</p>}
+
+      {/* visas först när en bokning har hämtats */}
+      {booking && (
+        <section>
+          <h2>Din bokning</h2>
+
+          <p>Studio: {booking.studioId}</p>
+
+          {/* kör split för att dela datum och tid */}
+          <p>Datum: {booking.startTime.split("T")[0]}</p>
+
+          <p>
+            Tid: {booking.startTime.split("T")[1]} -{" "}
+            {booking.endTime.split("T")[1]}
+          </p>
+
+          <p>Status: {booking.status}</p>
+
+          <button type="button">Ändra bokning</button>
+
+          {/* om bokningen är avbokad visas text, annars avbokningsknappen */}
+          {booking.status === "cancelled" ? (
+            <p>Bokningen är avbokad.</p>
+          ) : (
+            <button type="button" onClick={handleCancel}>
+              Avboka bokning
+            </button>
+          )}
+        </section>
+      )}
     </main>
   );
 }
