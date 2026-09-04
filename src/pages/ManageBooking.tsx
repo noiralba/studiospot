@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import "../styles/_ManageBooking.scss";
 import type { Booking } from "../components/types/Booking";
 import {
   validateTimeRange,
@@ -138,7 +138,7 @@ export default function ManageBooking() {
   }
 
   return (
-    <main>
+    <main className="manage-booking-page">
       <h1>Hantera din bokning</h1>
 
       {/* sökdel */}
