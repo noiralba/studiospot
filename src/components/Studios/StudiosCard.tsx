@@ -3,16 +3,11 @@ import styles from './StudiosCard.module.scss';
 import Button from '../Button/Button';
 import { useNavigate } from 'react-router';
 
-interface StudioCardProps {
-  name: string;
-  description: string;
-  imageUrl: string;
-  pricePerHour: number;
-  studioId?: number; // Optional studioId prop for future use 
-}
+import type { StudioCardViewProps } from '../types/Booking';
+
 
 //hämtar viss del av datan från db.json och visar den i en card komponent.
-export default function StudiosCard({ name, description, imageUrl, pricePerHour, studioId }: StudioCardProps) {
+export default function StudiosCard({ name, description, imageUrl, pricePerHour, studioId }: StudioCardViewProps) {
   const navigate = useNavigate(); // Initialize useNavigate hook
   
   return (
@@ -21,11 +16,10 @@ export default function StudiosCard({ name, description, imageUrl, pricePerHour,
       <h3 className={styles.name}>{name}</h3>
       <p className={styles.description}>{description}</p>
       <p className={styles.price}>Price per hour: {pricePerHour} SEK</p>
-      
       <Button
-        onClick={() => navigate(studioId ? `/booking?studioId=${studioId}` : '/studios')}
+        onClick={() => navigate(studioId ? `/studios?studioId=${studioId}` : '/studios')}
         type="button"
-        children="View Details" />
+        >View Details</Button>
     
     </section>
   );
