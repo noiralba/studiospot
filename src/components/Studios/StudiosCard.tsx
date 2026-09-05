@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 import type { StudioCardViewProps } from '../types/Booking';
 
 
-//hämtar viss del av datan från db.json och visar den i en card komponent.
+//använder type StudioCardViewProps för att definiera props som komponenten tar emot, inklusive studioId som nu är required
 export default function StudiosCard({ name, description, imageUrl, pricePerHour, studioId }: StudioCardViewProps) {
   const navigate = useNavigate(); // Initialize useNavigate hook
   
@@ -17,7 +17,7 @@ export default function StudiosCard({ name, description, imageUrl, pricePerHour,
       <p className={styles.description}>{description}</p>
       <p className={styles.price}>Price per hour: {pricePerHour} SEK</p>
       <Button
-        onClick={() => navigate(studioId ? `/studios?studioId=${studioId}` : '/studios')}
+        onClick={() => navigate(studioId ? `/studios/${studioId}` : '/studios')}
         type="button"
         >View Details</Button>
     
