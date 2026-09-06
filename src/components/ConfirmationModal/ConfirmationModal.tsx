@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Link } from "react-router";
 import Button from "../Button/Button";
 import styles from "./ConfirmationModal.module.scss";
 
@@ -52,8 +53,11 @@ export default function ConfirmationModal({
         </div>
 
         <div className={styles.actions}>
+          <Link to="/managebooking" className={styles.secondaryLink}>
+            Visa mina bokningar
+          </Link>
           <Button type="button" onClick={onClose}>
-            Klar, gå till startsidan
+            Klar, till startsidan
           </Button>
         </div>
       </div>
