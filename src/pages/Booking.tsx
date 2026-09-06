@@ -1,14 +1,31 @@
-import { Form, useSearchParams, redirect, useActionData } from "react-router";
+import {
+  Form,
+  useSearchParams,
+  useNavigate,
+  useActionData,
+} from "react-router";
 import type { ActionFunctionArgs } from "react-router";
 import "../styles/_Booking.scss";
 
 import FormGroup from "../components/FormGroup/FormGroup";
 import Button from "../components/Button/Button";
-import type {Booking} from "../components/types/Booking";
-import {validateTimeRange, checkDoubleBooking} from "../utils/bookingValidation";
+import type { Booking } from "../components/types/Booking";
+import {
+  validateTimeRange,
+  checkDoubleBooking,
+} from "../utils/bookingValidation";
+
+import ConfirmationModal from "../components/ConfirmationModal/ConfirmationModal";
 
 interface ActionData {
   error?: string;
+  success?: boolean;
+  data?: {
+    studioId: string;
+    date: string;
+    startTime: string;
+    endTime: string;
+  };
 }
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -18,10 +35,10 @@ export async function action({ request }: ActionFunctionArgs) {
   const studioIdParam = url.searchParams.get("studioId");
   const studioId = studioIdParam ? Number(studioIdParam) : undefined;
   if (!studioId) {
-    return {error: "ogiltigt studio-id"};
+    return { error: "ogiltigt studio-id" };
   }
-  
-  const date = formData.get("date") as  string;
+
+  const date = formData.get("date") as string;
   const startTime = formData.get("startTime") as string;
   const endTime = formData.get("endTime") as string;
   const email = formData.get("email") as string;
@@ -39,22 +56,27 @@ export async function action({ request }: ActionFunctionArgs) {
 
   // middleware
   const timeCheck = validateTimeRange(startISO, endISO);
-  if(!timeCheck.valid) {
-    return {error: timeCheck.message ?? "Ogitig tid"};
+  if (!timeCheck.valid) {
+    return { error: timeCheck.message ?? "Ogitig tid" };
   }
   let existingBookings: Booking[];
-  try{
-    const bookingsRes = await fetch (`/api/bookings?studioId=${studioId}`);
+  try {
+    const bookingsRes = await fetch(`/api/bookings?studioId=${studioId}`);
     if (!bookingsRes.ok) {
-      return {error: "Kan inte hämta befintlig bokningar"};
+      return { error: "Kan inte hämta befintlig bokningar" };
     }
     existingBookings = await bookingsRes.json();
   } catch {
-    return {error: "Fel. Försök igen"};
+    return { error: "Fel. Försök igen" };
   }
-  const conflictCheck = checkDoubleBooking(startISO, endISO, studioId, existingBookings);
-  if(!conflictCheck.valid) {
-    return {error: conflictCheck.message ?? "Studio är inte tillgänglig"};
+  const conflictCheck = checkDoubleBooking(
+    startISO,
+    endISO,
+    studioId,
+    existingBookings,
+  );
+  if (!conflictCheck.valid) {
+    return { error: conflictCheck.message ?? "Studio är inte tillgänglig" };
   }
 
   try {
@@ -70,7 +92,10 @@ export async function action({ request }: ActionFunctionArgs) {
       return { error: "Kunde inte spara bokningen på servern." };
     }
 
-    return redirect("/");
+    return {
+      success: true,
+      data: { studioId: String(studioId), date, startTime, endTime },
+    };
   } catch {
     return { error: "Nätverksfel. Försök igen senare." };
   }
@@ -78,8 +103,15 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function Booking() {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate(); //
   const studioId = searchParams.get("studioId");
   const actionData = useActionData() as ActionData | undefined;
+
+  const isModalOpen = !!actionData?.success;
+
+  const handleCloseModal = () => {
+    navigate("/");
+  };
 
   return (
     <main className="booking-page">
@@ -89,7 +121,14 @@ export default function Booking() {
       {actionData?.error && <p className="error-message">{actionData.error}</p>}
 
       <Form method="post" action={`?${searchParams.toString()}`}>
-        <FormGroup id="date" name="date" label="Datum" type="date" autoComplete="off" required />
+        <FormGroup
+          id="date"
+          name="date"
+          label="Datum"
+          type="date"
+          autoComplete="off"
+          required
+        />
 
         <FormGroup
           id="startTime"
@@ -121,6 +160,12 @@ export default function Booking() {
 
         <Button type="submit">Boka studio</Button>
       </Form>
+
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        bookingDetails={actionData?.data}
+      />
     </main>
   );
 }
