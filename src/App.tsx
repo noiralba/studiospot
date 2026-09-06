@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import Navigation from "./components/Navigation";
-
+import Footer from "./components/Footer";
 function App() {
   return (
     <>
@@ -10,6 +10,7 @@ function App() {
         <h1>Studio Spot</h1>
         <Outlet />
       </main>
+      <Footer />
     </>
   );
 }

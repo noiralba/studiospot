@@ -1,0 +1,75 @@
+@use "../styles/variables" as v;
+
+.footer {
+  padding: 2rem;
+  background-color: v.$color-text-main;
+  color: v.$color-bg-card;
+}
+
+.footerContent {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+
+  @include v.respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include v.respond-to(mobile) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer h2,
+.footer h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: inherit;
+}
+
+.footer p {
+  margin-top: 0;
+}
+
+.footer nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.footer nav h3 {
+  margin-bottom: 0.5rem;
+}
+
+.followSection {
+  text-align: center;
+}
+
+.socialLinks {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+}
+
+.socialLinks a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+}
+
+.copyright {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid v.$color-border;
+}
