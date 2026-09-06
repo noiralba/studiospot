@@ -103,9 +103,16 @@ Project data will be stored in `db.json` and exposed through json-server as a RE
 - GET
 - POST
 - PATCH
-- DELETE
 
 For the VG requirements, API communication will be handled through a reusable generic TypeScript API module.
+
+### DELETE
+
+DELETE is not used in the application. When a booking is cancelled, the booking is kept in the database and its status is changed to `"cancelled"` using PATCH instead of deleting it.
+
+This allows cancelled bookings to remain available in the system while ensuring that they are not treated as active bookings in the double-booking validation.
+
+This solution was approved by the teacher, since there was no natural use case for DELETE in the current application.
 
 ### Development Proxy
 
