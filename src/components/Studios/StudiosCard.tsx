@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router';
 
 import type { StudioCardViewProps } from '../types/Booking';
 
-
 //använder type StudioCardViewProps för att definiera props som komponenten tar emot, inklusive studioId som nu är required
 export default function StudiosCard({ name, description, imageUrl, pricePerHour, studioId }: StudioCardViewProps) {
   const navigate = useNavigate(); // Initialize useNavigate hook

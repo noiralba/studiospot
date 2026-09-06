@@ -20,6 +20,10 @@ export default function StudioDetailPage() {
       .then((data) => setStudio(data));
   }, [id]);
 
+  if (!id) {
+    return <p>Ogiltigt studio-id</p>
+  }
+
   if (!studio) {
     return <p>Loading...</p>;
   }
@@ -30,7 +34,7 @@ export default function StudioDetailPage() {
       imageUrl={studio.imageUrl}
       pricePerHour={studio.pricePerHour}
       category={studio.category}
-      studioId={id ? Number(id) : undefined}
+      studioId={Number(id)}
     />
   );
 }
