@@ -59,27 +59,12 @@
       "status": "cancelled"
     },
     {
-      "date": "2026-09-02",
-      "startTime": "01:23",
-      "endTime": "02:23",
-      "email": "neha@gmail.com",
-      "id": "-k9R_FRolzk"
-    },
-    {
       "studioId": 1,
-      "date": "2026-09-03",
-      "startTime": "14:01",
-      "endTime": "15:01",
-      "email": "neha@gmail.com",
-      "id": "_O8HxX4K0Ac"
-    },
-    {
-      "studioId": 1,
-      "date": "2026-09-04",
-      "startTime": "14:01",
-      "endTime": "15:02",
-      "email": "neha@gmail.com",
-      "id": "KH5gnHJdrs8"
+      "startTime": "2026-09-07T05:23",
+      "endTime": "2026-09-07T09:23",
+      "status": "confirmed",
+      "email": "bajajkrishanneha@gmail.com",
+      "id": "bgUMJttQwOA"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
