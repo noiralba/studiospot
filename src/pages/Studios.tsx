@@ -29,7 +29,7 @@ export default function Studios() {
             <p className={styles.description}>{studio.description}</p>
             <p className={styles.price}>Price per hour: {studio.pricePerHour} SEK</p>
             <Button type="button"
-        onClick={() => navigate('/booking')}
+       onClick={() => navigate(`/booking?studioId=${studio.id}`)}
         >Book Now</Button>
           </div>
         ))}

@@ -8,7 +8,7 @@ export interface StudioDetailProps {
   imageUrl: string;
   pricePerHour: number;
   category: string;
-  studioId?: number; // Optional studioId prop for future use
+  studioId: number; // Optional studioId prop for future use
 }
 
 export default function StudioDetail({ name, description, imageUrl, pricePerHour, category, studioId }: StudioDetailProps) {
@@ -28,7 +28,7 @@ const navigate = useNavigate(); // Initialize useNavigate hook
       </article>
       <article className={styles.studioActions}>
         <Button
-          onClick={() => navigate(studioId ? `/booking/${studioId}` : '/booking')} // Navigate to booking page with studioId if available
+          onClick={() => navigate(studioId ? `/booking?studioId=${studioId}` : '/booking')} // Navigate to booking page with studioId if available
           type='button'
           children='Book Now' />
       </article>
