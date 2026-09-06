@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
-import styles from '../components/Studios/StudiosCard.module.scss';
-import StudiosCard from '../components/Studios/StudiosCard';
-
-
+import { useState, useEffect } from "react";
+import styles from "../components/Studios/StudiosCard.module.scss";
+import StudiosCard from "../components/Studios/StudiosCard";
+import { get } from "../api/api";
 
 interface Studio {
   id: number;
@@ -16,12 +15,10 @@ export default function Home() {
   const [studios, setStudios] = useState<Studio[]>([]);
 
   useEffect(() => {
-  fetch('/api/studios')
-    .then(response => response.json())
-      .then(data => setStudios(data))
-    .catch(error => console.error('Error fetching studios:', error))
-}, []);
-
+    get<Studio[]>("/api/studios")
+      .then((data) => setStudios(data))
+      .catch((error) => console.error("Error fetching studios:", error));
+  }, []);
 
   return (
     <section>
@@ -29,7 +26,7 @@ export default function Home() {
       <p>Discover and book your favorite studios with ease.</p>
 
       <article className={styles.studioGrid}>
-        {studios.map(studio => (
+        {studios.map((studio) => (
           <StudiosCard
             key={studio.id}
             studioId={studio.id}
