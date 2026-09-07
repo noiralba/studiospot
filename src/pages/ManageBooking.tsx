@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../styles/_ManageBooking.scss";
+import { get, patch } from "../api/api";
 import type { Booking } from "../components/types/Booking";
 import {
   validateTimeRange,
@@ -24,14 +25,16 @@ export default function ManageBooking() {
     setIsEditing(false);
 
     try {
-      const response = await fetch(`/api/bookings/${bookingId}`);
+      // const response = await fetch(`/api/bookings/${bookingId}`);
 
-      if (!response.ok) {
-        setError("Bokningen kunde tyvärr inte hittas.");
-        return;
-      }
+      // if (!response.ok) {
+      //   setError("Bokningen kunde tyvärr inte hittas.");
+      //   return;
+      // }
 
-      const data: Booking = await response.json();
+      // const data: Booking = await response.json();
+
+      const data = await get<Booking>(`/api/bookings/${bookingId}`);
       setBooking(data);
     } catch {
       setError("Något gick fel. Försök igen.");
@@ -45,20 +48,27 @@ export default function ManageBooking() {
     }
 
     try {
-      const response = await fetch(`/api/bookings/${booking.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status: "cancelled" }),
-      });
+      // const response = await fetch(`/api/bookings/${booking.id}`, {
+      //   method: "PATCH",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ status: "cancelled" }),
+      // });
 
-      if (!response.ok) {
-        setError("Kunde inte avboka bokningen.");
-        return;
-      }
+      // if (!response.ok) {
+      //   setError("Kunde inte avboka bokningen.");
+      //   return;
+      // }
 
-      const updatedBooking: Booking = await response.json();
+      // const updatedBooking: Booking = await response.json();
+      // setBooking(updatedBooking);
+      // setIsEditing(false);
+
+      const updatedBooking = await patch<Partial<Booking>, Booking>(
+        `/api/bookings/${booking.id}`,
+        { status: "cancelled" },
+      );
       setBooking(updatedBooking);
       setIsEditing(false);
     } catch {
@@ -87,16 +97,52 @@ export default function ManageBooking() {
 
     // hämtar bokningar för samma studio för att kunna kolla dubbelbokning
     try {
-      const bookingsResponse = await fetch("/api/bookings");
+      // const bookingsResponse = await fetch("/api/bookings");
 
-      if (!bookingsResponse.ok) {
-        setError("Kunde inte kontrollera bokningar.");
-        return;
-      }
+      // if (!bookingsResponse.ok) {
+      //   setError("Kunde inte kontrollera bokningar.");
+      //   return;
+      // }
 
-      const existingBookings: Booking[] = await bookingsResponse.json();
+      // const existingBookings: Booking[] = await bookingsResponse.json();
 
-      // kollar om nya tiden krockar, ignorerar bokningen som ändras
+      // // kollar om nya tiden krockar, ignorerar bokningen som ändras
+      // const conflictCheck = checkDoubleBooking(
+      //   newStartTime,
+      //   newEndTime,
+      //   booking.studioId,
+      //   existingBookings,
+      //   booking.id,
+      // );
+
+      // if (!conflictCheck.valid) {
+      //   setError(conflictCheck.message ?? "Tiden är tyvärr redan bokad.");
+      //   return;
+      // }
+      // // uppdaterar bokningen med de nya tiderna
+      // const response = await fetch(`/api/bookings/${booking.id}`, {
+      //   method: "PATCH",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     startTime: newStartTime,
+      //     endTime: newEndTime,
+      //   }),
+      // });
+
+      // if (!response.ok) {
+      //   setError("Kunde tyvärr inte ändra bokningen.");
+      //   return;
+      // }
+
+      // const updatedBooking: Booking = await response.json();
+
+      // setBooking(updatedBooking);
+      // setIsEditing(false);
+
+      const existingBookings = await get<Booking[]>("/api/bookings");
+
       const conflictCheck = checkDoubleBooking(
         newStartTime,
         newEndTime,
@@ -109,24 +155,14 @@ export default function ManageBooking() {
         setError(conflictCheck.message ?? "Tiden är tyvärr redan bokad.");
         return;
       }
-      // uppdaterar bokningen med de nya tiderna
-      const response = await fetch(`/api/bookings/${booking.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+
+      const updatedBooking = await patch<Partial<Booking>, Booking>(
+        `/api/bookings/${booking.id}`,
+        {
           startTime: newStartTime,
           endTime: newEndTime,
-        }),
-      });
-
-      if (!response.ok) {
-        setError("Kunde tyvärr inte ändra bokningen.");
-        return;
-      }
-
-      const updatedBooking: Booking = await response.json();
+        },
+      );
 
       setBooking(updatedBooking);
       setIsEditing(false);

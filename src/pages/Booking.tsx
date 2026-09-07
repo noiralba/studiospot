@@ -9,6 +9,7 @@ import "../styles/_Booking.scss";
 
 import FormGroup from "../components/FormGroup/FormGroup";
 import Button from "../components/Button/Button";
+import { get, post } from "../api/api";
 import type { Booking, NewBooking } from "../components/types/Booking";
 import {
   validateTimeRange,
@@ -54,14 +55,16 @@ export async function action({ request }: ActionFunctionArgs) {
   if (!timeCheck.valid) {
     return { error: timeCheck.message ?? "Ogitig tid" };
   }
+
   let existingBookings: Booking[];
   try {
-    const bookingsRes = await fetch("/api/bookings");
+    // const bookingsRes = await fetch("/api/bookings");
+    existingBookings = await get<Booking[]>("/api/bookings");
 
-    if (!bookingsRes.ok) {
-      return { error: "Kan inte hämta befintlig bokningar" };
-    }
-    existingBookings = await bookingsRes.json();
+    // if (!bookingsRes.ok) {
+    //   return { error: "Kan inte hämta befintlig bokningar" };
+    // }
+    // existingBookings = await bookingsRes.json();
   } catch {
     return { error: "Fel. Försök igen" };
   }
@@ -76,19 +79,24 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   try {
-    const response = await fetch("/api/bookings", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bookingData),
-    });
+    // const response = await fetch("/api/bookings", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(bookingData),
+    // });
 
-    if (!response.ok) {
-      return { error: "Kunde inte spara bokningen på servern." };
-    }
+    // if (!response.ok) {
+    //   return { error: "Kunde inte spara bokningen på servern." };
+    // }
 
-    const savedBooking: Booking = await response.json();
+    // const savedBooking: Booking = await response.json();
+
+    const savedBooking = await post<NewBooking, Booking>(
+      "/api/bookings",
+      bookingData,
+    );
 
     return {
       success: true,
