@@ -1,9 +1,9 @@
-@use "../styles/variables" as v;
+@use "../../styles/variables" as v;
 
 .footer {
   padding: 2rem;
-  background-color: v.$color-text-main;
-  color: v.$color-bg-card;
+  background-color: #333;
+  color: white;
 }
 
 .footerContent {

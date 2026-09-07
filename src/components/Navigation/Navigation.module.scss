@@ -1,0 +1,44 @@
+@use "../../styles/variables" as v;
+@import url('https://fonts.googleapis.com/css2?family=Caacupe+One&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: v.$color-bg-page;
+  border-bottom: 1px solid v.$color-border;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    font-family: "Caacupe One", sans-serif;
+    text-transform: uppercase;
+  }
+
+  .navLinks {
+    display: flex;
+    gap: 1rem;
+    font-family: v.$mono;
+
+    .navLink {
+      text-decoration: none;
+      color: black;
+      font-weight: 500;
+
+      &:hover {
+        color: v.$color-primary-hover;
+        font-weight: bold;
+        text-decoration: underline;
+      }
+    }
+  }
+}
