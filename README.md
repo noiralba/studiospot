@@ -20,7 +20,7 @@ The purpose of the project is to practice and demonstrate TypeScript in a React 
 - TypeScript debugging
 - Git, GitHub, pull requests, and code reviews
 
-## Tech Stack
+## Tech Stack & Installed project dependencies currently include
 
 - React
 - TypeScript
@@ -104,7 +104,7 @@ Project data will be stored in `db.json` and exposed through json-server as a RE
 - POST
 - PATCH
 
-For the VG requirements, API communication will be handled through a reusable generic TypeScript API module.
+ API communication will be handled through a reusable generic TypeScript API module.
 
 ### DELETE
 
@@ -141,7 +141,7 @@ During development, Vite forwards these requests to JSON Server running on port 
 
 #### Prerequisites
 
-Make sure Node.js, npm, and Git are installed.
+ Node.js, npm, and Git are installed.
 
 ## Clone the repository
 
@@ -206,27 +206,6 @@ To be decided by the group.
 
 Before submission this section will contain the selected solution and a short explanation of why it was chosen.
 
-## Git Workflow
-
-The project uses a feature-branch and pull-request workflow.
-
-New work should not be developed directly on main.
-
-### Example:
-
-git switch -c feature/studio-list
-
-### The workflow is:
-
-1. Create a branch from an updated `main`
-2. Make small, focused changes
-3. Commit with descriptive commit messages
-4. Push the branch to GitHub
-5. Open a Pull Request
-6. Have at least one other group member review the Pull Request
-7. Merge into `main` after review
-
-Each group member is responsible for making traceable contributions and participating in code reviews.
 
 ## Group Members
 
@@ -236,20 +215,9 @@ Each group member is responsible for making traceable contributions and particip
 - Andrea Vega Piñones
 - Maria Labrooy
 
-## Project Status
 
-The initial React + TypeScript project setup is complete.
 
-### Installed project dependencies currently include:
 
-- React
-- TypeScript
-- Vite
-- React Router v8
-- json-server
-- Oxlint
-
-The next development phase begins after the domain pitch and initial data model have been agreed upon
 
 ```
 
