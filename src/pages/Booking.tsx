@@ -26,9 +26,13 @@ interface ActionData {
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
 
+  // const url = new URL(request.url);
+  // const studioIdParam = url.searchParams.get("studioId");
+  // const studioId = studioIdParam ? Number(studioIdParam) : undefined;
+
   const url = new URL(request.url);
-  const studioIdParam = url.searchParams.get("studioId");
-  const studioId = studioIdParam ? Number(studioIdParam) : undefined;
+  const studioId = url.searchParams.get("studioId");
+
   if (!studioId) {
     return { error: "ogiltigt studio-id" };
   }
@@ -67,7 +71,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const conflictCheck = checkDoubleBooking(
     startISO,
     endISO,
-    studioId,
+    studioId, // look at source fix num --> str
     existingBookings,
   );
   if (!conflictCheck.valid) {

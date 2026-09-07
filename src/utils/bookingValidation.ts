@@ -35,9 +35,9 @@ export function validateTimeRange(
 export function checkDoubleBooking(
   newStart: string,
   newEnd: string,
-  studioId: number,
+  studioId: string,
   existingBooking: Booking[],
-  ignoreBookingId?: number,
+  ignoreBookingId?: string,
 ): ValidationResult {
   const newStartDate = new Date(newStart);
   const newEndDate = new Date(newEnd);
