@@ -20,12 +20,7 @@ import ConfirmationModal from "../components/ConfirmationModal/ConfirmationModal
 interface ActionData {
   error?: string;
   success?: boolean;
-  data?: {
-    studioId: string;
-    date: string;
-    startTime: string;
-    endTime: string;
-  };
+  data?: Booking;
 }
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -92,9 +87,11 @@ export async function action({ request }: ActionFunctionArgs) {
       return { error: "Kunde inte spara bokningen på servern." };
     }
 
+    const savedBooking: Booking = await response.json();
+
     return {
       success: true,
-      data: { studioId: String(studioId), date, startTime, endTime },
+      data: savedBooking,
     };
   } catch {
     return { error: "Nätverksfel. Försök igen senare." };
