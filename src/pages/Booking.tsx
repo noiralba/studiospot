@@ -26,10 +26,6 @@ interface ActionData {
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
 
-  // const url = new URL(request.url);
-  // const studioIdParam = url.searchParams.get("studioId");
-  // const studioId = studioIdParam ? Number(studioIdParam) : undefined;
-
   const url = new URL(request.url);
   const studioId = url.searchParams.get("studioId");
 
@@ -60,7 +56,8 @@ export async function action({ request }: ActionFunctionArgs) {
   }
   let existingBookings: Booking[];
   try {
-    const bookingsRes = await fetch(`/api/bookings?studioId=${studioId}`);
+    const bookingsRes = await fetch("/api/bookings");
+
     if (!bookingsRes.ok) {
       return { error: "Kan inte hämta befintlig bokningar" };
     }
@@ -71,7 +68,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const conflictCheck = checkDoubleBooking(
     startISO,
     endISO,
-    studioId, // look at source fix num --> str
+    studioId,
     existingBookings,
   );
   if (!conflictCheck.valid) {

@@ -87,9 +87,7 @@ export default function ManageBooking() {
 
     // hämtar bokningar för samma studio för att kunna kolla dubbelbokning
     try {
-      const bookingsResponse = await fetch(
-        `/api/bookings?studioId=${booking.studioId}`,
-      );
+      const bookingsResponse = await fetch("/api/bookings");
 
       if (!bookingsResponse.ok) {
         setError("Kunde inte kontrollera bokningar.");
