@@ -9,7 +9,7 @@ import "../styles/_Booking.scss";
 
 import FormGroup from "../components/FormGroup/FormGroup";
 import Button from "../components/Button/Button";
-import type { Booking } from "../components/types/Booking";
+import type { Booking, NewBooking } from "../components/types/Booking";
 import {
   validateTimeRange,
   checkDoubleBooking,
@@ -46,11 +46,11 @@ export async function action({ request }: ActionFunctionArgs) {
   const startISO = `${date}T${startTime}`;
   const endISO = `${date}T${endTime}`;
 
-  const bookingData = {
+  const bookingData: NewBooking = {
     studioId,
     startTime: startISO,
     endTime: endISO,
-    status: "confirmed" as const,
+    status: "confirmed",
     email,
   };
 
