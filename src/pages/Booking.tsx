@@ -11,7 +11,7 @@ import FormGroup from "../components/FormGroup/FormGroup";
 import Button from "../components/Button/Button";
 import { get, post } from "../api/api";
 import type { Booking, NewBooking } from "../components/types/Booking";
-import { get, post } from "../api/api";
+
 import {
   validateTimeRange,
   checkDoubleBooking,

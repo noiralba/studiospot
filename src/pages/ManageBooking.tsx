@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../styles/_ManageBooking.scss";
 import { get, patch } from "../api/api";
 import type { Booking } from "../components/types/Booking";
-import { get, patch } from "../api/api";
+
 import {
   validateTimeRange,
   checkDoubleBooking,
