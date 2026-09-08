@@ -1,5 +1,5 @@
 export interface Studio {
-  id: number;
+  id: string;
   name: string;
   capacity: number;
   pricePerHour: number;
@@ -10,8 +10,8 @@ export interface Studio {
 }
 
 export interface Booking {
-  id: number;
-  studioId: number;
+  id: string;
+  studioId: string;
   email: string;
   startTime: string;
   endTime: string;

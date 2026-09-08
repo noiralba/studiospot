@@ -9,6 +9,7 @@ import "../styles/_Booking.scss";
 
 import FormGroup from "../components/FormGroup/FormGroup";
 import Button from "../components/Button/Button";
+import { get, post } from "../api/api";
 import type { Booking, NewBooking } from "../components/types/Booking";
 import { get, post } from "../api/api";
 import {
@@ -27,8 +28,8 @@ export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
 
   const url = new URL(request.url);
-  const studioIdParam = url.searchParams.get("studioId");
-  const studioId = studioIdParam ? Number(studioIdParam) : undefined;
+  const studioId = url.searchParams.get("studioId");
+
   if (!studioId) {
     return { error: "ogiltigt studio-id" };
   }
@@ -54,11 +55,10 @@ export async function action({ request }: ActionFunctionArgs) {
   if (!timeCheck.valid) {
     return { error: timeCheck.message ?? "Ogiltig tid" };
   }
+
   let existingBookings: Booking[];
   try {
-    existingBookings = await get<Booking[]>(
-      `/api/bookings?studioId=${studioId}`,
-    );
+    existingBookings = await get<Booking[]>("/api/bookings");
   } catch {
     return { error: "Kan inte hämta befintliga bokningar" };
   }
@@ -89,7 +89,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function Booking() {
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate(); //
+  const navigate = useNavigate();
   const studioId = searchParams.get("studioId");
   const actionData = useActionData() as ActionData | undefined;
 

@@ -5,13 +5,13 @@ export interface ValidationResult {
   message?: string;
 }
 /** Checking if time overlaps, if yes than newStart */
-export function hasTimeConfilct(
+export function hasTimeConflict(
   newStart: Date,
   newEnd: Date,
-  existingStart: Date,
-  existingEnd: Date, // ← existingStart param is missing entirely
+  existingStart: Date, // Rättad parameter här (stod två stycken existingEnd innan)
+  existingEnd: Date,
 ): boolean {
-  return newStart < existingEnd && newEnd > existingStart; // existingStart used but never declared
+  return newStart < existingEnd && newEnd > existingStart;
 }
 
 /** ensure end time is after start time */
@@ -25,7 +25,7 @@ export function validateTimeRange(
   if (end <= start) {
     return {
       valid: false,
-      message: "Slut tiden måste ligga efter start tiden",
+      message: "Sluttiden måste ligga efter starttiden",
     };
   }
   return { valid: true };
@@ -35,9 +35,9 @@ export function validateTimeRange(
 export function checkDoubleBooking(
   newStart: string,
   newEnd: string,
-  studioId: number,
+  studioId: string,
   existingBooking: Booking[],
-  ignoreBookingId?: number,
+  ignoreBookingId?: string,
 ): ValidationResult {
   const newStartDate = new Date(newStart);
   const newEndDate = new Date(newEnd);
@@ -48,14 +48,15 @@ export function checkDoubleBooking(
       booking.status === "confirmed" &&
       booking.id !== ignoreBookingId,
   );
+
   for (const booking of relevantBookings) {
     const existingStart = new Date(booking.startTime);
     const existingEnd = new Date(booking.endTime);
 
-    if (hasTimeConfilct(newStartDate, newEndDate, existingStart, existingEnd)) {
+    if (hasTimeConflict(newStartDate, newEndDate, existingStart, existingEnd)) {
       return {
         valid: false,
-        message: `Studio är redan bokad ${existingStart.toLocaleTimeString(
+        message: `Studion är redan bokad mellan ${existingStart.toLocaleTimeString(
           "sv-SE",
           {
             hour: "2-digit",
