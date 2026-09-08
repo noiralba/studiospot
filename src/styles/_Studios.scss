@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  margin: 0 auto;
 }
 
 .studioCard {
@@ -15,16 +16,17 @@
   border-radius: 8px;
   overflow: hidden;
   margin: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .imageContainer {
-  flex: 0 0 250px; // fast bredd på bilden, justera efter behov
+  flex: 0 0 250px; 
 }
 
 .image {
-  width: 100%;
+  width: 500px;
   height: 100%;
-  object-fit: cover; // gör att bilden fyller ytan utan att bli skev
+  object-fit: cover; 
   display: block;
 }
 
@@ -35,6 +37,46 @@
   padding: 1rem;
   align-items: flex-start;
   justify-content: flex-start;
+  color: #cccccc;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: v.$color-text-heading;
+}
+
+.description {
+  font-size: 14px;
+  color: v.$color-text-muted;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #4caf50;
+  margin-bottom: 10px;
+}
+
+.capacity {
+  font-size: 14px;
+  color: #cccccc;
+  margin-bottom: 10px;
+}
+
+.category {
+  font-size: 12px;
+  color: #cccccc;
+  margin: 2rem 0;
+  background-color: #333333;
+  padding: 5px 10px;
+  border-radius: 4px;
+  width: fit-content;
+  font-family: 'Arial', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 

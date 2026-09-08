@@ -159,7 +159,7 @@ export default function ManageBooking() {
 
       {/* visas först när en bokning har hämtats */}
       {booking && (
-        <section>
+        <section className="booking-details">
           <h2>Din bokning</h2>
 
           <p>Studio: {booking.studioId}</p>

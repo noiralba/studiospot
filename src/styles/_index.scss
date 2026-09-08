@@ -22,7 +22,7 @@ h2,
 h3 {
   font-family: v.$heading;
   font-weight: 500;
-  color: v.$color-text-main;
+  color: v.$color-text-heading;
 }
 
 h1 {
@@ -49,6 +49,7 @@ p {
   margin: 0;
   font-family: v.$sans;
   font-weight: 400;
+  color: v.$color-text-muted;
 }
 
 main {
