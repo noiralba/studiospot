@@ -4,7 +4,7 @@ StudioSpot is a booking system for creative studios, built as a group project in
 
 The application allows users to view and book different types of creative studios, such as photo, podcast, music, and video studios.
 
-A booking belongs to a specific studio and contains information about the booking time and the booker's email address. The application will prevent overlapping bookings for the same studio.
+A booking belongs to a specific studio and contains information about the booking time and the booker's email address. The application prevents overlapping bookings for the same studio.
 
 ## Project Purpose
 
@@ -20,7 +20,7 @@ The purpose of the project is to practice and demonstrate TypeScript in a React 
 - TypeScript debugging
 - Git, GitHub, pull requests, and code reviews
 
-## Tech Stack & Installed project dependencies currently include
+## Tech Stack
 
 - React
 - TypeScript
@@ -47,22 +47,20 @@ A studio is a resource that can be booked.
 
 ### Booking
 
-A Booking represents a reservation of a specific studio.
+A booking represents a reservation of a specific studio.
 
-#### Each booking will contain:
+#### Each booking contains:
 
 - A reference to a studio
 - The booker's email address
 - Start and end time
 - Booking status
 
-The final TypeScript interfaces will be added after the domain pitch and data model have been approved.
-
 ## Double Booking Prevention
 
-Before a new booking is created, the application will check existing bookings for the selected studio.
+Before a new booking is created, the application checks existing bookings for the selected studio.
 
-A booking will not be allowed if its time interval overlaps an existing active booking for the same studio.
+A booking is not allowed if its time interval overlaps an existing active booking for the same studio.
 
 The double-booking check is handled in the frontend because the project uses json-server instead of a custom backend.
 
@@ -70,9 +68,9 @@ The double-booking check is handled in the frontend because the project uses jso
 
 The project uses React Router v8 in Data Mode.
 
-Routes will be defined as route objects with `createBrowserRouter` and rendered with `RouterProvider`.
+Routes are defined as route objects with `createBrowserRouter` and rendered with `RouterProvider`.
 
-The application contain multiple routes, including a dynamic route with a URL parameter:
+The application contains multiple routes, including a dynamic route with a URL parameter:
 
 ```text
 /
@@ -94,17 +92,17 @@ is converted to:
 
 This allows individual studios to be accessed through URLs such as `/studios/1` or `/studios/2`.
 
-The studio detail page reads the `id` parameter from the URL using `useParams`, fetches the selected studio through `/api/studios/:id`, and renders the existing `StudioDetail`component.
+The studio detail page reads the `id` parameter from the URL using `useParams`, fetches the selected studio through `/api/studios/:id`, and renders the existing `StudioDetail` component.
 
 ## Data and API
 
-Project data will be stored in `db.json` and exposed through json-server as a REST API. The application will communicate with the API using:
+Project data is stored in `db.json` and exposed through json-server as a REST API. The application communicates with the API using:
 
 - GET
 - POST
 - PATCH
 
- API communication will be handled through a reusable generic TypeScript API module.
+API communication is handled through a reusable generic TypeScript API module.
 
 ### DELETE
 
@@ -118,10 +116,10 @@ This solution was approved by the teacher, since there was no natural use case f
 
 Vite uses a development proxy for API requests.
 
-Frontend requests should use the `/api` prefix:
+Frontend requests use the `/api` prefix:
 
 - `/api/studios`
-- `/api/booking`
+- `/api/bookings`
 
 #### Example request:
 
@@ -135,13 +133,13 @@ During development, Vite forwards these requests to JSON Server running on port 
 
 `/api/studios` -> `http://localhost:3000/studios`
 
-`/api/booking` -> `http://localhost:3000/booking`
+`/api/bookings` -> `http://localhost:3000/bookings`
 
 ## Getting Started
 
 #### Prerequisites
 
- Node.js, npm, and Git are installed.
+Node.js, npm, and Git are required.
 
 ## Clone the repository
 
@@ -149,11 +147,15 @@ During development, Vite forwards these requests to JSON Server running on port 
 
 #### Move into the project directory:
 
-`cd studiospot`
+```text
+cd studiospot
+```
 
 ## Install dependencies:
 
-`npm install`
+```text
+npm install
+```
 
 ## Start the React development server
 
@@ -182,30 +184,27 @@ http://localhost:3000
 ### Available endpoints
 
 - `/studios`
-- `/booking`
+- `/bookings`
 
 ---
 
 ## Available Scripts
 
-`npm run dev` -Starts the Vite development server
+`npm run dev` - Starts the Vite development server
 
-`npm run server` -Starts JSON Server and exposes the local REST API from `db.json`.
+`npm run server` - Starts JSON Server and exposes the local REST API from `db.json`.
 
-`npm run build` -Runs the TypeScript build and creates the production build.
+`npm run build` - Runs the TypeScript build and creates the production build.
 
-`npm run lint` -Runs Oxlint
+`npm run lint` - Runs Oxlint
 
-`npm run preview` -Previews the production build locally
+`npm run preview` - Previews the production build locally
 
 ## Styling
 
 ### Styling solution:
 
-To be decided by the group.
-
-Before submission this section will contain the selected solution and a short explanation of why it was chosen.
-
+The application is styled using SCSS, including SCSS modules for component-specific styling.
 
 ## Group Members
 
@@ -214,11 +213,3 @@ Before submission this section will contain the selected solution and a short ex
 - Sara Kemppi
 - Andrea Vega Piñones
 - Maria Labrooy
-
-
-
-
-
-```
-
-```
