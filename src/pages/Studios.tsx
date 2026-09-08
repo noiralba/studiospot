@@ -1,8 +1,9 @@
-import styles from '../components/Studios/StudiosCard.module.scss';
 import { useEffect, useState } from 'react';
 import type { Studio } from '../components/types/Booking';
 import Button from '../components/Button/Button';
 import { useNavigate } from 'react-router';
+
+import "../styles/_Studios.scss";
 
 
 export default function Studios() {
@@ -18,22 +19,25 @@ export default function Studios() {
 
   return (
     <section>
-      <h2>Studios</h2>
-      <p>Explore our selection of studios available for booking.</p>
 
-      <article className={styles.studios}>
+      <article className="studiosContainer">
         {studios.map(studio => (
-          <div key={studio.id} className={styles.studioCard}>
-            <img src={studio.imageUrl} alt={`${studio.name} studio`} className={styles.image} />
-            <h3 className={styles.name}>{studio.name}</h3>
-            <p className={styles.description}>{studio.description}</p>
-            <p className={styles.price}>Price per hour: {studio.pricePerHour} SEK</p>
+          <div key={studio.id} className="studioCard">
+            <div className="imageContainer">
+              <img src={studio.imageUrl} alt={`${studio.name} studio`} className="image" />
+            </div>
+            <div className="studioInfo">
+            <h3 className="name">{studio.name}</h3>
+            <p className="description">{studio.description}</p>
+            <p className="price">Price per hour: {studio.pricePerHour} SEK</p>
+            <p className="capacity">Capacity: {studio.capacity} people</p>
+            <p className="category">{studio.category}</p>
             <Button type="button"
        onClick={() => navigate(`/booking?studioId=${studio.id}`)}
-        >Book Now</Button>
+              >Book Now</Button>
+            </div>
           </div>
         ))}
-       
       </article>
     </section>
   );

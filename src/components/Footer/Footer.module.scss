@@ -1,9 +1,10 @@
-@use "../styles/variables" as v;
+@use "../../styles/variables" as v;
 
 .footer {
   padding: 2rem;
-  background-color: v.$color-text-main;
-  color: v.$color-bg-card;
+  background-color: #333;
+  color: white;
+  border-top: 1px solid v.$color-border;
 }
 
 .footerContent {
@@ -44,6 +45,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  margin-bottom: 1rem;
 }
 
 .footer nav h3 {

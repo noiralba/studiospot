@@ -2,8 +2,9 @@
 $color-primary: #0066cc;
 $color-primary-hover: #0052a3;
 $color-primary-active: #003d7a;
-$color-text-main: #1a1a1a;
-$color-text-muted: #666;
+$color-text-heading: #fff;
+$color-text-main: #1e1e1e;
+$color-text-muted: #e5e4e7;
 $color-border: #ccc;
 $color-bg-page: #f9f9f9;
 $color-bg-card: #ffffff;
@@ -15,6 +16,11 @@ $transition-fast:
   border-color 0.2s,
   background-color 0.2s,
   box-shadow 0.2s;
+
+//font-families
+    $sans:"Segoe UI", Roboto, "sans-serif";
+    $heading: system-ui, "Segoe UI", Roboto, "sans-serif";
+    $mono: ui-monospace, Consolas, "monospace";
 
 // Mixin för återanvändbar fokus-styling (tillgänglighet)
 @mixin focus-ring {

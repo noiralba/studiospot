@@ -24,7 +24,7 @@ const navigate = useNavigate(); // Initialize useNavigate hook
         <h3 className={styles.name}>{name}</h3>
         <p className={styles.description}>{description}</p>
         <p className={styles.price}>Price per hour: {pricePerHour} SEK</p>
-        <p className={styles.category}>Category: {category}</p>
+        <p className={styles.category}>{category}</p>
       </article>
       <article className={styles.studioActions}>
         <Button
