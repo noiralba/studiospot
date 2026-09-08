@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../styles/_ManageBooking.scss";
 import type { Booking } from "../components/types/Booking";
+import { get, patch } from "../api/api";
 import {
   validateTimeRange,
   checkDoubleBooking,
@@ -24,17 +25,10 @@ export default function ManageBooking() {
     setIsEditing(false);
 
     try {
-      const response = await fetch(`/api/bookings/${bookingId}`);
-
-      if (!response.ok) {
-        setError("Bokningen kunde tyvärr inte hittas.");
-        return;
-      }
-
-      const data: Booking = await response.json();
+      const data = await get<Booking>(`/api/bookings/${bookingId}`);
       setBooking(data);
     } catch {
-      setError("Något gick fel. Försök igen.");
+      setError("Bokningen kunde tyvärr inte hittas.");
     }
   }
 
@@ -45,24 +39,15 @@ export default function ManageBooking() {
     }
 
     try {
-      const response = await fetch(`/api/bookings/${booking.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status: "cancelled" }),
-      });
+      const updatedBooking = await patch<{ status: "cancelled" }, Booking>(
+        `/api/bookings/${booking.id}`,
+        { status: "cancelled" },
+      );
 
-      if (!response.ok) {
-        setError("Kunde inte avboka bokningen.");
-        return;
-      }
-
-      const updatedBooking: Booking = await response.json();
       setBooking(updatedBooking);
       setIsEditing(false);
     } catch {
-      setError("Något gick fel. Försök igen.");
+      setError("Kunde inte avboka bokningen.");
     }
   }
 
@@ -87,16 +72,9 @@ export default function ManageBooking() {
 
     // hämtar bokningar för samma studio för att kunna kolla dubbelbokning
     try {
-      const bookingsResponse = await fetch(
+      const existingBookings = await get<Booking[]>(
         `/api/bookings?studioId=${booking.studioId}`,
       );
-
-      if (!bookingsResponse.ok) {
-        setError("Kunde inte kontrollera bokningar.");
-        return;
-      }
-
-      const existingBookings: Booking[] = await bookingsResponse.json();
 
       // kollar om nya tiden krockar, ignorerar bokningen som ändras
       const conflictCheck = checkDoubleBooking(
@@ -112,28 +90,25 @@ export default function ManageBooking() {
         return;
       }
       // uppdaterar bokningen med de nya tiderna
-      const response = await fetch(`/api/bookings/${booking.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      let updatedBooking: Booking;
+
+      try {
+        updatedBooking = await patch<
+          { startTime: string; endTime: string },
+          Booking
+        >(`/api/bookings/${booking.id}`, {
           startTime: newStartTime,
           endTime: newEndTime,
-        }),
-      });
-
-      if (!response.ok) {
+        });
+      } catch {
         setError("Kunde tyvärr inte ändra bokningen.");
         return;
       }
 
-      const updatedBooking: Booking = await response.json();
-
       setBooking(updatedBooking);
       setIsEditing(false);
     } catch {
-      setError("Något gick fel. Försök igen.");
+      setError("Kunde inte kontrollera bokningar.");
     }
   }
 
