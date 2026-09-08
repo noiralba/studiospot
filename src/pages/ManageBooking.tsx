@@ -25,6 +25,11 @@ export default function ManageBooking() {
     setBooking(null);
     setIsEditing(false);
 
+    if (!bookingId.trim()) {
+      setError("Ange ett bokningsnummer.");
+      return;
+    }
+
     try {
       const data = await get<Booking>(`/api/bookings/${bookingId}`);
       setBooking(data);
