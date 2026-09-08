@@ -1,4 +1,9 @@
-import { Form, useSearchParams, redirect, useActionData } from "react-router";
+import {
+  Form,
+  useSearchParams,
+  useNavigate,
+  useActionData,
+} from "react-router";
 import type { ActionFunctionArgs } from "react-router";
 import "../styles/_Booking.scss";
 
@@ -10,9 +15,12 @@ import {
   validateTimeRange,
   checkDoubleBooking,
 } from "../utils/bookingValidation";
+import ConfirmationModal from "../components/ConfirmationModal/ConfirmationModal";
 
 interface ActionData {
   error?: string;
+  success?: boolean;
+  data?: Booking;
 }
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -65,9 +73,15 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   try {
-    await post<NewBooking, Booking>("/api/bookings", bookingData);
+    const savedBooking = await post<NewBooking, Booking>(
+      "/api/bookings",
+      bookingData,
+    );
 
-    return redirect("/");
+    return {
+      success: true,
+      data: savedBooking,
+    };
   } catch {
     return { error: "Kunde inte spara bokningen på servern." };
   }
@@ -75,8 +89,15 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function Booking() {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate(); //
   const studioId = searchParams.get("studioId");
   const actionData = useActionData() as ActionData | undefined;
+
+  const isModalOpen = !!actionData?.success;
+
+  const handleCloseModal = () => {
+    navigate("/");
+  };
 
   return (
     <main className="booking-page">
@@ -125,6 +146,12 @@ export default function Booking() {
 
         <Button type="submit">Boka studio</Button>
       </Form>
+
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        bookingDetails={actionData?.data}
+      />
     </main>
   );
 }
