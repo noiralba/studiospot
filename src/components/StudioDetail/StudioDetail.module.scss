@@ -1,11 +1,12 @@
+@use "../../styles/variables" as v;
+
 .studioDetail {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  border: 1px solid var(--border);
   border-radius: 8px;
-  background-color: var(--background);
+  background-color: #1e1e1e;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   max-width: 800px;
   margin: 20px auto;
@@ -37,6 +38,7 @@
   font-weight: bold;
   margin-bottom: 10px;
   color: white;
+  
 }
 
 .description {
@@ -59,6 +61,10 @@
   background-color: #333333;
   padding: 5px 10px;
   border-radius: 4px;
+  width: fit-content;
+  font-family: 'Arial', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .studioActions {

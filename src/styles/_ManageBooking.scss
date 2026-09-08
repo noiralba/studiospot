@@ -4,14 +4,18 @@
   max-width: 600px;
   margin: 2rem auto;
   padding: 2rem;
+  background-color: v.$color-bg-card;
+  border-radius: v.$border-radius-lg;
 
   h1 {
     font-size: 2rem;
     margin-bottom: 0.5rem;
+    color: v.$color-text-main;
   }
 
   > p {
     margin-bottom: 2rem;
+    color: v.$color-text-main;
   }
 
   input {
@@ -22,6 +26,12 @@
     color: v.$color-text-main;
     font-size: 1rem;
     color-scheme: light;
+
+    &:focus {
+      outline: none;
+      border-color: v.$color-primary;
+      box-shadow: 0 0 0 2px rgba(v.$color-primary, 0.2);
+    }
   }
 
   button {
@@ -33,12 +43,10 @@
     font-size: 1rem;
   }
 
-  section {
+  .booking-details {
     margin-top: 2rem;
     padding: 2rem;
     border: 1px solid v.$color-border;
-    border-radius: v.$border-radius-lg;
-    background-color: v.$color-bg-card;
 
     p {
       margin-bottom: 0.7rem;

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "../components/Studios/StudiosCard.module.scss";
 import StudiosCard from "../components/Studios/StudiosCard";
 import { get } from "../api/api";
+import Hero from "../components/Hero/Hero";
 
 interface Studio {
   id: number;
@@ -22,9 +23,7 @@ export default function Home() {
 
   return (
     <section>
-      <h2>Welcome to Studio Spot</h2>
-      <p>Discover and book your favorite studios with ease.</p>
-
+      <Hero />
       <article className={styles.studioGrid}>
         {studios.map((studio) => (
           <StudiosCard
