@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../styles/_ManageBooking.scss";
 import { get, patch } from "../api/api";
 import type { Booking } from "../components/types/Booking";
+import { get, patch } from "../api/api";
 import {
   validateTimeRange,
   checkDoubleBooking,
@@ -28,7 +29,7 @@ export default function ManageBooking() {
       const data = await get<Booking>(`/api/bookings/${bookingId}`);
       setBooking(data);
     } catch {
-      setError("Något gick fel. Försök igen.");
+      setError("Bokningen kunde tyvärr inte hittas.");
     }
   }
 
@@ -46,7 +47,7 @@ export default function ManageBooking() {
       setBooking(updatedBooking);
       setIsEditing(false);
     } catch {
-      setError("Något gick fel. Försök igen.");
+      setError("Kunde inte avboka bokningen.");
     }
   }
 
@@ -97,7 +98,7 @@ export default function ManageBooking() {
       setBooking(updatedBooking);
       setIsEditing(false);
     } catch {
-      setError("Något gick fel. Försök igen.");
+      setError("Kunde inte kontrollera bokningar.");
     }
   }
 

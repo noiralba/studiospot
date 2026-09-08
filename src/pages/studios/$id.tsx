@@ -1,27 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import StudioDetail from "../../components/StudioDetail/StudioDetail";
-
-interface Studio {
-  name: string;
-  description: string;
-  imageUrl: string;
-  pricePerHour: number;
-  category: string;
-}
+import { get } from "../../api/api";
+import type { Studio } from "../../components/types/Booking";
 
 export default function StudioDetailPage() {
   const { id } = useParams();
   const [studio, setStudio] = useState<Studio | null>(null);
 
   useEffect(() => {
-    fetch(`/api/studios/${id}`)
-      .then((response) => response.json())
-      .then((data) => setStudio(data));
+    get<Studio>(`/api/studios/${id}`).then((data) => setStudio(data));
   }, [id]);
 
   if (!id) {
-    return <p>Ogiltigt studio-id</p>
+    return <p>Ogiltigt studio-id</p>;
   }
 
   if (!studio) {

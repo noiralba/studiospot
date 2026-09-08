@@ -11,11 +11,11 @@ import FormGroup from "../components/FormGroup/FormGroup";
 import Button from "../components/Button/Button";
 import { get, post } from "../api/api";
 import type { Booking, NewBooking } from "../components/types/Booking";
+import { get, post } from "../api/api";
 import {
   validateTimeRange,
   checkDoubleBooking,
 } from "../utils/bookingValidation";
-
 import ConfirmationModal from "../components/ConfirmationModal/ConfirmationModal";
 
 interface ActionData {
@@ -53,14 +53,14 @@ export async function action({ request }: ActionFunctionArgs) {
   // middleware
   const timeCheck = validateTimeRange(startISO, endISO);
   if (!timeCheck.valid) {
-    return { error: timeCheck.message ?? "Ogitig tid" };
+    return { error: timeCheck.message ?? "Ogiltig tid" };
   }
 
   let existingBookings: Booking[];
   try {
     existingBookings = await get<Booking[]>("/api/bookings");
   } catch {
-    return { error: "Fel. Försök igen" };
+    return { error: "Kan inte hämta befintliga bokningar" };
   }
   const conflictCheck = checkDoubleBooking(
     startISO,
@@ -83,7 +83,7 @@ export async function action({ request }: ActionFunctionArgs) {
       data: savedBooking,
     };
   } catch {
-    return { error: "Nätverksfel. Försök igen senare." };
+    return { error: "Kunde inte spara bokningen på servern." };
   }
 }
 
