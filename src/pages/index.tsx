@@ -3,14 +3,7 @@ import styles from "../components/Studios/StudiosCard.module.scss";
 import StudiosCard from "../components/Studios/StudiosCard";
 import { get } from "../api/api";
 import Hero from "../components/Hero/Hero";
-
-interface Studio {
-  id: number;
-  name: string;
-  description: string;
-  imageUrl: string;
-  pricePerHour: number;
-}
+import type { Studio } from "../components/types/Booking";
 
 export default function Home() {
   const [studios, setStudios] = useState<Studio[]>([]);

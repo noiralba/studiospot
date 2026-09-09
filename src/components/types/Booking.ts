@@ -20,4 +20,4 @@ export interface Booking {
 
 export type NewBooking = Omit<Booking, "id">;
 
-export type StudioCardViewProps = Pick<Studio, "name" | "description" | "imageUrl" | "pricePerHour"> & { studioId?: number };
+export type StudioCardViewProps = Pick<Studio, "name" | "description" | "imageUrl" | "pricePerHour"> & { studioId?: string };
