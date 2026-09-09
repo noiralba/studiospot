@@ -9,6 +9,8 @@ export default function StudioDetailPage() {
   const [studio, setStudio] = useState<Studio | null>(null);
 
   useEffect(() => {
+    if (!id) return;
+
     get<Studio>(`/api/studios/${id}`).then((data) => setStudio(data));
   }, [id]);
 
