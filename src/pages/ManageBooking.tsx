@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "../styles/_ManageBooking.scss";
-import type { Booking } from "../components/types/Booking";
 import { get, patch } from "../api/api";
+import type { Booking } from "../components/types/Booking";
+
 import {
   validateTimeRange,
   checkDoubleBooking,
@@ -24,6 +25,11 @@ export default function ManageBooking() {
     setBooking(null);
     setIsEditing(false);
 
+    if (!bookingId.trim()) {
+      setError("Ange ett bokningsnummer.");
+      return;
+    }
+
     try {
       const data = await get<Booking>(`/api/bookings/${bookingId}`);
       setBooking(data);
@@ -39,11 +45,10 @@ export default function ManageBooking() {
     }
 
     try {
-      const updatedBooking = await patch<{ status: "cancelled" }, Booking>(
+      const updatedBooking = await patch<Partial<Booking>, Booking>(
         `/api/bookings/${booking.id}`,
         { status: "cancelled" },
       );
-
       setBooking(updatedBooking);
       setIsEditing(false);
     } catch {
@@ -72,11 +77,8 @@ export default function ManageBooking() {
 
     // hämtar bokningar för samma studio för att kunna kolla dubbelbokning
     try {
-      const existingBookings = await get<Booking[]>(
-        `/api/bookings?studioId=${booking.studioId}`,
-      );
+      const existingBookings = await get<Booking[]>("/api/bookings");
 
-      // kollar om nya tiden krockar, ignorerar bokningen som ändras
       const conflictCheck = checkDoubleBooking(
         newStartTime,
         newEndTime,
@@ -89,21 +91,14 @@ export default function ManageBooking() {
         setError(conflictCheck.message ?? "Tiden är tyvärr redan bokad.");
         return;
       }
-      // uppdaterar bokningen med de nya tiderna
-      let updatedBooking: Booking;
 
-      try {
-        updatedBooking = await patch<
-          { startTime: string; endTime: string },
-          Booking
-        >(`/api/bookings/${booking.id}`, {
+      const updatedBooking = await patch<Partial<Booking>, Booking>(
+        `/api/bookings/${booking.id}`,
+        {
           startTime: newStartTime,
           endTime: newEndTime,
-        });
-      } catch {
-        setError("Kunde tyvärr inte ändra bokningen.");
-        return;
-      }
+        },
+      );
 
       setBooking(updatedBooking);
       setIsEditing(false);
