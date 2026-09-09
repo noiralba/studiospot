@@ -9,8 +9,9 @@ import {
 } from "../utils/bookingValidation";
 
 export default function ManageBooking() {
-  // useState för spara id, bokning, felmeddelande, ändring av bokniing
-  const [bookingId, setBookingId] = useState("");
+  // useState för e-postsökning, bokningar, vald bokning, felmeddelande och redigering
+  const [email, setEmail] = useState("");
+  const [bookings, setBookings] = useState<Booking[]>([]);
   const [booking, setBooking] = useState<Booking | null>(null);
   const [error, setError] = useState("");
   const [isEditing, setIsEditing] = useState(false);
@@ -18,23 +19,41 @@ export default function ManageBooking() {
   const [editStartTime, setEditStartTime] = useState("");
   const [editEndTime, setEditEndTime] = useState("");
 
+  function updateBookingState(updatedBooking: Booking) {
+    setBooking(updatedBooking);
+
+    setBookings((previousBookings) =>
+      previousBookings.map((item) =>
+        item.id === updatedBooking.id ? updatedBooking : item,
+      ),
+    );
+  }
+
   //GET
-  // körs när kunden klickat på hitta bokning, rensa tidigare sök
+  // körs när kunden klickar på Visa bokningar och rensar tidigare sökresultat
   async function handleSearch() {
     setError("");
+    setBookings([]);
     setBooking(null);
     setIsEditing(false);
 
-    if (!bookingId.trim()) {
-      setError("Ange ett bokningsnummer.");
+    if (!email.trim()) {
+      setError("Ange din e-postadress.");
       return;
     }
 
     try {
-      const data = await get<Booking>(`/api/bookings/${bookingId}`);
-      setBooking(data);
+      const data = await get<Booking[]>(
+        `/api/bookings?email=${encodeURIComponent(email.trim())}`,
+      );
+      if (data.length === 0) {
+        setError("Inga bokningar hittades för den angivna e-postadressen.");
+        return;
+      }
+
+      setBookings(data);
     } catch {
-      setError("Bokningen kunde tyvärr inte hittas.");
+      setError("Bokningarna kunde tyvärr inte hämtas.");
     }
   }
 
@@ -49,7 +68,7 @@ export default function ManageBooking() {
         `/api/bookings/${booking.id}`,
         { status: "cancelled" },
       );
-      setBooking(updatedBooking);
+      updateBookingState(updatedBooking);
       setIsEditing(false);
     } catch {
       setError("Kunde inte avboka bokningen.");
@@ -100,7 +119,7 @@ export default function ManageBooking() {
         },
       );
 
-      setBooking(updatedBooking);
+      updateBookingState(updatedBooking);
       setIsEditing(false);
     } catch {
       setError("Kunde inte kontrollera bokningar.");
@@ -112,20 +131,39 @@ export default function ManageBooking() {
       <h1>Hantera din bokning</h1>
 
       {/* sökdel */}
-      <p>Ange ditt bokningsnummer för att visa eller ändra din bokning.</p>
+      <p>Ange din e-postadress för att visa eller ändra dina bokningar.</p>
 
       <input
-        type="text"
-        placeholder="Bokningsnummer"
-        value={bookingId}
-        onChange={(event) => setBookingId(event.target.value)}
+        type="email"
+        placeholder="E-postadress"
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
       />
 
       <button type="button" onClick={handleSearch}>
-        Hitta bokning
+        Visa bokningar
       </button>
 
       {error && <p>{error}</p>}
+
+      {bookings.length > 0 && (
+        <section>
+          <h2>Dina bokningar</h2>
+
+          {bookings.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => {
+                setBooking(item);
+                setIsEditing(false);
+              }}
+            >
+              Bokningsdetaljer - {item.startTime.split("T")[0]}
+            </button>
+          ))}
+        </section>
+      )}
 
       {/* visas först när en bokning har hämtats */}
       {booking && (
@@ -183,32 +221,43 @@ export default function ManageBooking() {
             </div>
           )}
 
-          {/* om bokningen är avbokad visas text, annars knapparna */}
           {booking.status === "cancelled" ? (
             <p>Bokningen är avbokad.</p>
           ) : (
             <>
               {!isEditing && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEditDate(booking.startTime.split("T")[0]);
-                    setEditStartTime(
-                      booking.startTime.split("T")[1].slice(0, 5),
-                    );
-                    setEditEndTime(booking.endTime.split("T")[1].slice(0, 5));
-                    setIsEditing(true);
-                  }}
-                >
-                  Ändra bokning
-                </button>
-              )}
+                <>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEditDate(booking.startTime.split("T")[0]);
+                      setEditStartTime(
+                        booking.startTime.split("T")[1].slice(0, 5),
+                      );
+                      setEditEndTime(booking.endTime.split("T")[1].slice(0, 5));
+                      setIsEditing(true);
+                    }}
+                  >
+                    Ändra bokning
+                  </button>
 
-              <button type="button" onClick={handleCancel}>
-                Avboka bokning
-              </button>
+                  <button type="button" onClick={handleCancel}>
+                    Avboka bokning
+                  </button>
+                </>
+              )}
             </>
           )}
+
+          <button
+            type="button"
+            onClick={() => {
+              setBooking(null);
+              setIsEditing(false);
+            }}
+          >
+            Tillbaka till mina bokningar
+          </button>
         </section>
       )}
     </main>
