@@ -34,10 +34,19 @@ export async function action({ request }: ActionFunctionArgs) {
     return { error: "ogiltigt studio-id" };
   }
 
-  const date = formData.get("date") as string;
-  const startTime = formData.get("startTime") as string;
-  const endTime = formData.get("endTime") as string;
-  const email = formData.get("email") as string;
+  const date = formData.get("date");
+  const startTime = formData.get("startTime");
+  const endTime = formData.get("endTime");
+  const email = formData.get("email");
+
+  if (
+    typeof date !== "string" ||
+    typeof startTime !== "string" ||
+    typeof endTime !== "string" ||
+    typeof email !== "string"
+  ) {
+    return { error: "Alla bokningsfält måste vara ifyllda korrekt." };
+  }
 
   const startISO = `${date}T${startTime}`;
   const endISO = `${date}T${endTime}`;
