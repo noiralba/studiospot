@@ -11,13 +11,13 @@ function Navigation() {
         </Link>
       <section className={styles.navLinks}>
         <Link to="/" className={styles.navLink}>
-          Home
+          Hem
         </Link>
         <Link to="/studios" className={styles.navLink}>
           Studios
         </Link>
         <Link to="/managebooking" className={styles.navLink}>
-          My booking
+          Min bokning
         </Link>
       </section>
     </nav>

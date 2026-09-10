@@ -23,14 +23,14 @@ const navigate = useNavigate(); // Initialize useNavigate hook
       <article className={styles.studioInfo}>
         <h3 className={styles.name}>{name}</h3>
         <p className={styles.description}>{description}</p>
-        <p className={styles.price}>Price per hour: {pricePerHour} SEK</p>
+        <p className={styles.price}>{pricePerHour} kr/h</p>
         <p className={styles.category}>{category}</p>
       </article>
       <article className={styles.studioActions}>
         <Button
           onClick={() => navigate(studioId ? `/booking?studioId=${studioId}` : '/booking')} // Navigate to booking page with studioId if available
           type='button'
-          children='Book Now' />
+          >Boka nu</Button>
       </article>
     </section>
   );

@@ -9,7 +9,7 @@
 
 .studioCard {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: stretch;
   gap: 1rem;
   background-color: #1e1e1e;
@@ -17,17 +17,32 @@
   overflow: hidden;
   margin: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    @media (min-width: v.$breakpoint-tablet-min) {
+        flex-direction: row; 
+      }
 }
 
 .imageContainer {
-  flex: 0 0 250px; 
+  flex: 0 0 auto;
+  width: 100%;
+
+  @media (min-width: v.$breakpoint-tablet-min) {
+    flex: 0 0 250px;
+    width: auto;
+  }
 }
 
 .image {
-  width: 500px;
-  height: 100%;
-  object-fit: cover; 
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
   display: block;
+
+  @media (min-width: v.$breakpoint-tablet-min) {
+    width: 400px;
+    height: 100%;
+  }
 }
 
 .studioInfo {
@@ -41,16 +56,21 @@
 }
 
 .name {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   margin-bottom: 10px;
   color: v.$color-text-heading;
+
+    @media (min-width: v.$breakpoint-tablet-min) {
+        font-size: 20px;
+      }
 }
 
 .description {
   font-size: 14px;
   color: v.$color-text-muted;
   margin-bottom: 10px;
+  text-align: left;
 }
 
 .price {
