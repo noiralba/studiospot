@@ -21,6 +21,14 @@ export function validateTimeRange(
 ): ValidationResult {
   const start = new Date(startTime);
   const end = new Date(endTime);
+  const now =  new Date();
+
+  if (start < now) {
+    return {
+      valid: false,
+      message: "Starttiden kan inte ligga i dåtid",
+    };
+  }
 
   if (end <= start) {
     return {
