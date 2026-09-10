@@ -19,6 +19,14 @@ export default function ManageBooking() {
   const [editStartTime, setEditStartTime] = useState("");
   const [editEndTime, setEditEndTime] = useState("");
 
+  function formatDate(dateTime: string) {
+    return dateTime.split("T")[0];
+  }
+
+  function formatTime(dateTime: string) {
+    return dateTime.split("T")[1].slice(0, 5);
+  }
+
   function updateBookingState(updatedBooking: Booking) {
     setBooking(updatedBooking);
 
@@ -159,7 +167,7 @@ export default function ManageBooking() {
                 setIsEditing(false);
               }}
             >
-              Bokningsdetaljer - {item.startTime.split("T")[0]}
+              Bokningsdetaljer - {formatDate(item.startTime)}
             </button>
           ))}
         </section>
@@ -172,12 +180,10 @@ export default function ManageBooking() {
 
           <p>Studio: {booking.studioId}</p>
 
-          {/* kör split för att dela datum och tid */}
-          <p>Datum: {booking.startTime.split("T")[0]}</p>
+          <p>Datum: {formatDate(booking.startTime)}</p>
 
           <p>
-            Tid: {booking.startTime.split("T")[1]} -{" "}
-            {booking.endTime.split("T")[1]}
+            Tid: {formatTime(booking.startTime)} - {formatTime(booking.endTime)}
           </p>
 
           <p>Status: {booking.status}</p>
@@ -230,11 +236,9 @@ export default function ManageBooking() {
                   <button
                     type="button"
                     onClick={() => {
-                      setEditDate(booking.startTime.split("T")[0]);
-                      setEditStartTime(
-                        booking.startTime.split("T")[1].slice(0, 5),
-                      );
-                      setEditEndTime(booking.endTime.split("T")[1].slice(0, 5));
+                      setEditDate(formatDate(booking.startTime));
+                      setEditStartTime(formatTime(booking.startTime));
+                      setEditEndTime(formatTime(booking.endTime));
                       setIsEditing(true);
                     }}
                   >
