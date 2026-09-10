@@ -1,13 +1,25 @@
+@use "../../styles/variables" as v;
+
 .hero {
   position: relative;
-  height: 60vh;
-  min-height: 350px;
+  height: 45vh;
+  min-height: 280px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: url('https://images.unsplash.com/photo-1517273006195-51fa3364bce2?q=80&w=1073&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center / cover no-repeat;
   color: #fff;
   text-align: center;
+
+    @media (min-width: v.$breakpoint-tablet-min) {
+        height: 55vh;
+        min-height: 320px;
+      }
+    
+      @media (min-width: v.$breakpoint-desktop-min) {
+        height: 60vh;
+        min-height: 350px;
+      }
 }
 
 .overlay {
@@ -19,16 +31,40 @@
 .content {
   position: relative;
   z-index: 1;
-  max-width: 600px;
+  max-width: 90%;
   padding: 0 1rem;
+
+  @media (min-width: v.$breakpoint-tablet-min) {
+    max-width: 500px;
+  }
+
+  @media (min-width: v.$breakpoint-desktop-min) {
+    max-width: 600px;
+  }
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   margin-bottom: 0.5rem;
+
+  @media (min-width: v.$breakpoint-tablet-min) {
+    font-size: 2.1rem;
+  }
+
+  @media (min-width: v.$breakpoint-desktop-min) {
+    font-size: 2.5rem;
+  }
 }
 
 .subtitle {
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  margin-bottom: 1.25rem;
+
+  @media (min-width: v.$breakpoint-tablet-min) {
+    font-size: 1.05rem;
+  }
+
+  @media (min-width: v.$breakpoint-desktop-min) {
+    font-size: 1.1rem;
+  }
 }

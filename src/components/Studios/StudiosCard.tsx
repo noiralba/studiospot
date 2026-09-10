@@ -14,11 +14,11 @@ export default function StudiosCard({ name, description, imageUrl, pricePerHour,
       <img src={imageUrl} alt={`${name} studio`} className={styles.image} />
       <h3 className={styles.name}>{name}</h3>
       <p className={styles.description}>{description}</p>
-      <p className={styles.price}>From {pricePerHour} SEK</p>
+      <p className={styles.price}>Från {pricePerHour} kr</p>
       <Button
         onClick={() => navigate(studioId ? `/studios/${studioId}` : '/studios')}
         type="button"
-        >View Details</Button>
+        >Läs mer</Button>
     
     </section>
   );

@@ -30,14 +30,14 @@ export default function Studios() {
             <div className="studioInfo">
               <h3 className="name">{studio.name}</h3>
               <p className="description">{studio.description}</p>
-              <p className="price">Price per hour: {studio.pricePerHour} SEK</p>
-              <p className="capacity">Capacity: {studio.capacity} people</p>
+              <p className="price">{studio.pricePerHour} kr/h</p>
+              <p className="capacity">Antal pers: {studio.capacity} st</p>
               <p className="category">{studio.category}</p>
               <Button
                 type="button"
                 onClick={() => navigate(`/booking?studioId=${studio.id}`)}
               >
-                Book Now
+                Boka nu
               </Button>
             </div>
           </div>
