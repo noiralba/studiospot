@@ -37,9 +37,7 @@ export default function ConfirmationModal({
     <dialog ref={dialogRef} className={styles.modal} onClose={onClose}>
       <div className={styles.content}>
         <h2>Bokningen bekräftad</h2>
-        <p>
-          Bokningsnummer: <strong>{bookingDetails.id}</strong>
-        </p>
+
         <p>
           Du har bokat <strong>Studio {bookingDetails.studioId}</strong>.
         </p>
@@ -55,6 +53,8 @@ export default function ConfirmationModal({
             <strong>Bekräftelse skickad till:</strong> {bookingDetails.email}
           </p>
         </div>
+
+        <p>Hantera din bokning med din e-postadress.</p>
 
         <div className={styles.actions}>
           <Link to="/managebooking" className={styles.secondaryLink}>
